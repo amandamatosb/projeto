@@ -1,0 +1,12 @@
+INTEGRANTES DO PROJETO: 
+Amanda Barros Matos
+Livia Gabriele Campos Lima
+Larissa Cristina Nunes Guarates
+
+Nós somos do grupo Áries+Libra e estamos desenvolvendo esse sistema de Planner
+
+Matérias:
+Programação Orientada a Objetos
+Linguagem de Programação
+Fundamentos e Análises de Sistema
+Banco de Dados
