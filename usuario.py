@@ -11,30 +11,44 @@ class Usuario:
     self.__nome = ''
     self.__email = ''
     self.__senha = ''
-    self.__cidade = ''
-    self.__estado = ''
-    self.__logradouro = ''
-    self.__bairro =  ''
-    self.__numero = '' 
 
   def realizar_cadastro(self):
     os.system('clear')
     print('- CADASTRO')
     self.__nome = input('nome: ').title()
-    self.__email = input('email: ') 
-    self.__senha = input('senha: ')
-    print()
-    print('- ENDEREÇO')
-    self.__cidade = input('cidade: ').title()
-    self.__estado = input('sigla do estado: ').upper()
-    self.__logradouro = input('logradouro: ').title()
-    self.__bairro = input('bairro: ').title()
-    self.__numero = input('número residencial: ')
-    print('\033[0;49;92m/cadastro finalizado/\033[m')
-    time.sleep(5)
+    while True:
+      os.system('clear')
+      print('- CADASTRO')
+      print(f'nome: {self.__nome}')
+      try:
+        self.__email = input('email: ').lower()
+        if self.__email[-10:] != '@gmail.com':
+          raise ValueError()
+        else:
+          break
+          
+      except(ValueError):
+        print('\033[0;49;31m/email inválido!/\033[m')
+        input('enter para tentar novamente')
+      
+    while True:
+      os.system('clear')
+      print('- CADASTRO')
+      print(f'nome: {self.__nome}')
+      print(f'email: {self.__email}')
+      try:
+        self.__senha = input('senha: ')
+        if self.__senha.islower() or len(self.__senha) < 7  or self.__senha.isalpha() or self.__senha.isalnum():
+          raise ValueError()
+        else:
+          break
 
+      except(ValueError):
+        print('\033[0;49;31m/senha fraca!/\033[m')
+        input('enter para tentar novamente')
+    
     email.append(self.__email)
-    usuarios.extend((self.__nome, self.__email, self.__senha, self.__cidade, self.__estado, self.__logradouro, self.__bairro, self.__numero))
+    usuarios.extend((self.__nome, self.__email, self.__senha))
 
   def fazer_login(self):
     os.system('clear')
@@ -84,7 +98,7 @@ class Usuario:
         raise ValueError()
         
     except(TypeError, ValueError):
-      print('\033[0;49;93mtivemos um problema :( , digite 1, 2 ou 3\033[m')
+      print('\ntivemos um problema :( \ndigite 1, 2 ou 3\033[0;49;93m\ncarregando...\033[m')
       time.sleep(4)
       os.system('clear')
       self.escolher_funcoes(email_digitado, rsenha)
@@ -96,12 +110,6 @@ class Usuario:
     print('\033[0;49;34mnome:\033[m', usuarios[rsenha - 1])
     print('\033[0;49;34memail:\033[m', usuarios[rsenha])
     print('\033[0;49;34msenha:\033[m', usuarios[rsenha + 1], '\n')
-    print('       - ENDEREÇO -  ')
-    print('\033[0;49;34mcidade:\033[m', usuarios[rsenha + 2])
-    print('\033[0;49;34mestado:\033[m', usuarios[rsenha + 3])
-    print('\033[0;49;34mlogradouro:\033[m', usuarios[rsenha + 4])
-    print('\033[0;49;34mbairro:\033[m', usuarios[rsenha + 5])
-    print('\033[0;49;34mnúmero residencial:\033[m', usuarios[rsenha + 6])
 
     try:
       print('\033[0;49;35m\nPLANNER\033[m')
@@ -116,7 +124,7 @@ class Usuario:
         raise ValueError()
 
     except(ValueError, TypeError):
-      print('\033[0;49;93mtivemos um problema :( , digite 1 ou 2\033[m')
+      print('\ntivemos um problema :( \ndigite 1 ou 2\033[0;49;93m\ncarregando...\033[m')
       time.sleep(4)
       os.system('clear')
       self.exibir_dados(email_digitado, rsenha)
