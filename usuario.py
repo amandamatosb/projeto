@@ -2,6 +2,7 @@ import os
 import time
 from agendamento import Agendamento
 global eventos_usuarios
+import re 
 usuarios = []
 email = []
 eventos_usuarios = {}
@@ -14,14 +15,14 @@ class Usuario:
 
   def realizar_cadastro(self):
     os.system('clear')
-    print('- CADASTRO')
-    self.__nome = input('nome: ').title()
+    print('\033[0;49;96m - CADASTRO\033[m')
+    self.__nome = input('\033[0;49;96mnome: \033[m').title()
     while True:
       os.system('clear')
-      print('- CADASTRO')
-      print(f'nome: {self.__nome}')
+      print('\033[0;49;96m - CADASTRO\033[m')
+      print(f'\033[0;49;96mnome:\033[m {self.__nome}')
       try:
-        self.__email = input('email: ').lower()
+        self.__email = input('\033[0;49;96memail: \033[m').lower()
         if self.__email[-10:] != '@gmail.com':
           raise ValueError()
         else:
@@ -31,29 +32,40 @@ class Usuario:
         print('\033[0;49;31m/email inválido!/\033[m')
         input('enter para tentar novamente')
       
-    while True:
+    while True: 
       os.system('clear')
-      print('- CADASTRO')
-      print(f'nome: {self.__nome}')
-      print(f'email: {self.__email}')
+      print('\033[0;49;96m - CADASTRO\033[m')
+      print(f'\033[0;49;96mnome:\033[m {self.__nome}')
+      print(f'\033[0;49;96memail:\033[m {self.__email}')
       try:
-        self.__senha = input('senha: ')
-        if self.__senha.islower() or len(self.__senha) < 7  or self.__senha.isalpha() or self.__senha.isalnum():
+        self.__senha = input('\033[0;49;96msenha: \033[m')
+        if (len(self.__senha)<8): 
           raise ValueError()
-        else:
+        elif not re.search("[a-z]", self.__senha): 
+          raise ValueError()
+        elif not re.search("[A-Z]", self.__senha): 
+          raise ValueError()
+        elif not re.search("[0-9]", self.__senha): 
+          raise ValueError()
+        elif not re.search("[!#$%&()*+,-./:;<=>?@[\]^_`{|}~']", self.__senha): 
+          raise ValueError()
+        elif re.search("\s", self.__senha): 
+          raise ValueError()
+        else: 
           break
-
+          
       except(ValueError):
         print('\033[0;49;31m/senha fraca!/\033[m')
-        input('enter para tentar novamente')
+        print('\nAVISO: \n mínimo 8 caracteres \n letras minúsculas [az] \n letras maiúsculas [AZ] \n pelo menos 1 número ou dígito entre [0-9] \n pelo menos 1 caractere especial')
+        input('\nenter para tentar novamente')
     
     email.append(self.__email)
     usuarios.extend((self.__nome, self.__email, self.__senha))
 
   def fazer_login(self):
     os.system('clear')
-    print(' - LOGIN ')
-    email_digitado = input('email: ')
+    print('\033[0;49;96m - LOGIN\033[m')
+    email_digitado = input('\033[0;49;96memail: \033[m')
     if email_digitado in email:
       self.senha_login(email_digitado)
 
@@ -64,9 +76,9 @@ class Usuario:
 
   def senha_login(self, email_digitado):
     os.system('clear')
-    print(' - LOGIN ')
-    print('email:', email_digitado)
-    senha_digitada = input('senha: ')
+    print('\033[0;49;96m - LOGIN \033[m')
+    print('\033[0;49;96memail:\033[m', email_digitado)
+    senha_digitada = input('\033[0;49;96msenha: \033[m')
     
     rsenha = usuarios.index(email_digitado)
     
@@ -84,7 +96,7 @@ class Usuario:
     try:
       os.system('clear')
       print('\033[0;49;35mPLANNER - BEM VINDO\033[m')
-      print('1 - exibir dados do usuário \n2 - agenda \n3 - voltar')
+      print('1 - dados do usuário \n2 - agenda \n3 - sair')
       resposta = int(input('-> '))
       if resposta == 1:
         self.exibir_dados(email_digitado, rsenha)
@@ -98,7 +110,7 @@ class Usuario:
         raise ValueError()
         
     except(TypeError, ValueError):
-      print('\ntivemos um problema :( \ndigite 1, 2 ou 3\033[0;49;93m\ncarregando...\033[m')
+      print('\033[0;49;94m\n*eita mano, deu erro aq* \nvoltando...\033[m')
       time.sleep(4)
       os.system('clear')
       self.escolher_funcoes(email_digitado, rsenha)
@@ -106,25 +118,17 @@ class Usuario:
   def exibir_dados(self, email_digitado, rsenha):
     os.system('clear')
     rsenha = usuarios.index(email_digitado)
-    print('    - DADOS DO USUÁRIO -  ')
+    print('\033[0;49;34m - DADOS DO USUÁRIO\033[m')
     print('\033[0;49;34mnome:\033[m', usuarios[rsenha - 1])
     print('\033[0;49;34memail:\033[m', usuarios[rsenha])
     print('\033[0;49;34msenha:\033[m', usuarios[rsenha + 1], '\n')
 
     try:
-      print('\033[0;49;35m\nPLANNER\033[m')
-      print('1 - agenda \n2 - voltar')
-      resposta = int(input('-> '))
-      if resposta == 1:
-        self.consultar_agendamento(email_digitado)
-        self.escolher_funcoes(email_digitado, rsenha)
-      elif resposta == 2:
-        self.escolher_funcoes(email_digitado, rsenha)
-      else:
-        raise ValueError()
+      input('enter para voltar')
+      self.escolher_funcoes(email_digitado, rsenha)
 
     except(ValueError, TypeError):
-      print('\ntivemos um problema :( \ndigite 1 ou 2\033[0;49;93m\ncarregando...\033[m')
+      print('\033[0;49;94m\n*eita mano, deu erro aq* \nvoltando...\033[m')
       time.sleep(4)
       os.system('clear')
       self.exibir_dados(email_digitado, rsenha)

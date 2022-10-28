@@ -7,12 +7,12 @@ usuario = Usuario()
 
 def comeco():
   try:
-    print('\033[0;49;35mPLANNER\033[m')
+    print('\033[0;49;35mPLANNER - INÍCIO\033[m')
     print('1 - login \n2 - cadastro \n3 - ver sobre o sistema')
     resposta = int(input('-> '))
 
   except (TypeError, ValueError):
-    print('\ntivemos um problema :( \ndigite 1, 2 ou 3\033[0;49;93m\ncarregando...\033[m')
+    print('\033[0;49;94m\n*calma ae mano, tá querendo ir aonde??* \nvoltando...\033[m')
     time.sleep(4)
     os.system('clear')
     comeco()
@@ -20,7 +20,7 @@ def comeco():
   else:
     if resposta == 1:
       if len(usuarios) == 0:
-        print('\nnão será possível realizar login, pois não há nenhum cadastro em nosso sistema\033[0;49;93m\ncarregando...\033[m')
+        print('\033[0;49;94m\n*vish! não tem sequer um cadastro no nosso sistema* \nvoltando...\033[m')
         time.sleep(5)
         os.system('clear')
         comeco()
@@ -57,7 +57,7 @@ def comeco():
       comeco()
       
     else:
-      print('\ntivemos um problema :( \ndigite 1, 2 ou 3\033[0;49;93m\ncarregando...\033[m')
+      print('\033[0;49;94m\n*calma ae mano, tá querendo ir aonde??* \nvoltando...\033[m')
       time.sleep(4)
       os.system('clear')
       comeco()

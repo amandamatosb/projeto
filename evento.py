@@ -1,5 +1,6 @@
 import os
 from calendario import Calendario
+import time
 evento = {}
 
 class Evento:
@@ -24,66 +25,84 @@ class Evento:
     self.eventos.append(evento.copy())
 
   def modificar_evento(self):
-    os.system('clear')
-    print('*caso esqueça do código do seu evento, digite 0 para a pergunta.')
-    codigo = int(input('digite o código do evento que deseja modificar: '))
+    try:
+      os.system('clear')
+      print('*caso esqueça do código do seu evento, digite 0 para a pergunta.')
+      codigo = int(input('digite o código do evento que deseja modificar: '))
 
-    if codigo == 0:
-      for e in self.eventos:
+      if codigo == 0:
+        for e in self.eventos:
+          print('-=' * 30)
+          for chave, valor in e.items():
+            print(f'{chave} = {valor} ', end = '')
+            print()
+
         print('-=' * 30)
-        for chave, valor in e.items():
-          print(f'{chave} = {valor} ', end = '')
-          print()
+        input('\nenter para voltar')
+        self.modificar_evento()
 
-      print('-=' * 30)
-      input('\nenter para voltar')
+      elif codigo > len(self.eventos) or codigo < 0:
+        print('\nnão existe esse código de evento no sistema.')
+        print('1 - tentar novamente \n2 - voltar ao agendamento ')
+        resposta = int(input('-> '))
+        if resposta == 1:
+          self.modificar_evento()
+        elif resposta == 2:
+          pass
+        else: 
+          raise ValueError()  
+          
+      else:
+        self.eventos.pop(codigo-1)
+        self.__cod_evento = codigo
+        evento['código'] = self.__cod_evento
+        os.system('clear')
+        print('EVENTO')
+        evento['nome'] = self.__nome_evento = input('nome: ')
+        os.system('clear')
+        evento['data'] = self.__data_evento.definir_data()
+        os.system('clear')
+        evento['local'] = self.__local_evento = input('local: ')
+
+        self.eventos.append(evento.copy())
+
+    except:
+      print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')
+      time.sleep(4)
       self.modificar_evento()
 
-    elif codigo > len(self.eventos):
-      print('não existe esse código de evento no sistema.')
-      print('1 - tentar novamente \n2 - voltar ao agendamento ')
-      resposta = int(input('-> '))
-      if resposta == 1:
-        self.modificar_evento()
-      else:
-        pass
-          
-    else:
-      self.eventos.pop(codigo-1)
-      self.__cod_evento = codigo
-      evento['código'] = self.__cod_evento
-      os.system('clear')
-      print('EVENTO')
-      evento['nome'] = self.__nome_evento = input('nome: ')
-      os.system('clear')
-      evento['data'] = self.__data_evento.definir_data()
-      os.system('clear')
-      evento['local'] = self.__local_evento = input('local: ')
-
-      self.eventos.append(evento.copy())
-
   def excluir_evento(self):
-    os.system('clear')
-    print('*caso esqueça do código do seu evento, digite 0 para a pergunta.')
-    codigo = int(input('digite o código do evento que deseja excluir: '))
-    if codigo == 0:
-      for e in self.eventos:
+    try:
+      os.system('clear')
+      print('*caso esqueça do código do seu evento, digite 0 para a pergunta.')
+      codigo = int(input('digite o código do evento que deseja excluir: '))
+      if codigo == 0:
+        for e in self.eventos:
+          print('-=' * 30)
+          for chave, valor in e.items():
+            print(f'{chave} = {valor} ', end = '')
+            print()
+            
         print('-=' * 30)
-        for chave, valor in e.items():
-          print(f'{chave} = {valor} ', end = '')
-          print()
-          
-      print('-=' * 30)
-      input('\nenter para voltar')
-      self.excluir_evento()        
-    elif codigo > len(self.eventos):
-      print('não existe esse código de evento no sistema.')
-      print('1 - tentar novamente \n2 - voltar ao agendamento ')
-      resposta = int(input('-> '))
-      if resposta == 1:
-        self.excluir_evento()
-      else:
-        pass
+        input('\nenter para voltar')
+        self.excluir_evento()     
         
-    else:
-      self.eventos.pop(codigo-1)
+      elif codigo > len(self.eventos) or codigo < 0:
+        print('\nnão existe esse código de evento no sistema.')
+        print('1 - tentar novamente \n2 - voltar ao agendamento ')
+        resposta = int(input('-> '))
+        if resposta == 1:
+          self.excluir_evento()
+        elif resposta == 2:
+          pass
+        else: 
+          raise ValueError()
+          
+      else:
+        self.eventos.pop(codigo-1)
+        
+    except(TypeError, ValueError):
+      print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')
+      time.sleep(4)
+      self.excluir_evento()
+      

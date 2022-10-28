@@ -11,16 +11,9 @@ class Agendamento:
   def menu_agendamento(self):
     try:
       os.system('clear')
-      print('\033[0;49;35mPLANNER\033[m')
+      print('\033[0;49;35mPLANNER - AGENDA\033[m')
       print('1 - eventos \n2 - ver agendamento \n3 - voltar')
       resposta = int(input('-> '))
-
-    except(ValueError, TypeError):
-      print('\033[0;49;93mtivemos um problema :(, digite 1, 2 ou 3\033[m')
-      time.sleep(4)
-      self.menu_agendamento()
-
-    else:
       if resposta == 1:
         self.adicionar_evento()
       elif resposta == 2:
@@ -29,23 +22,19 @@ class Agendamento:
         os.system('clear')
         pass
       else:
-        print('\033[0;49;93mtivemos um problema :( , digite 1, 2 ou 3\033[m')
-        time.sleep(4)
-        self.menu_agendamento()
+        raise ValueError()
+
+    except(ValueError, TypeError):
+      print('\033[0;49;94m\n*mano que* \nvoltando...\033[m')
+      time.sleep(4)
+      self.menu_agendamento()
       
   def adicionar_evento(self):
     try:
       os.system('clear')
-      print('\033[0;49;35mPLANNER\033[m')
+      print('\033[0;49;35mPLANNER - EVENTO\033[m')
       print('1 - adicionar evento \n2 - modificar evento \n3 - excluir evento \n4 - voltar')
       resposta = int(input('-> '))
-
-    except(ValueError, TypeError):
-      print('\033[0;49;93mtivemos um problema :( , digite o número de uma das opções\033[m')
-      time.sleep(4)
-      self.adicionar_evento()
-
-    else:
       if resposta == 1:
         self.__evento.agendar_evento()
         os.system('clear')
@@ -61,13 +50,16 @@ class Agendamento:
       elif resposta == 4:
         self.menu_agendamento()
       else:
-        print('\033[0;49;93mtivemos um problema :( , digite o número de uma das opções\033[m')
-        time.sleep(4)
-        self.adicionar_evento()
+        raise ValueError()
+
+    except(ValueError, TypeError):
+      print('\033[0;49;94m\n*mano que* \nvoltando...\033[m')
+      time.sleep(4)
+      self.adicionar_evento()
 
   def exibir_eventos(self):
     os.system('clear')
-    print('\033[0;49;35mPLANNER\033[m')
+    print('\033[0;49;35mPLANNER - AGENDAMENTO\033[m')
     for e in self.__evento.eventos:
       print('-=' * 30)
       for chave, valor in e.items():
