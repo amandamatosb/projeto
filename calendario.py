@@ -12,18 +12,10 @@ class Calendario:
     self.datas = []
 
   def definir_data(self):
-    os.system('clear')
-    print('\033[7;97;35m             IMPORTANTE!                 \033[m')
-    print('\033[7;97;35m tipos de dados que aceitamos:           \033[m')
-    print('\033[7;97;35m ano -> YYYY                             \033[m')
-    print('\033[7;97;35m mês -> 1-12                             \033[m')
-    print('\033[7;97;35m dia -> dias disponíveis no mês escolhido\033[m')
-    print('\033[7;97;35m horas -> hh:mm                          \033[m')
-    input('\033[7;97;35m       enter para continuar              \033[m')
     
     while True:
       os.system('clear')
-      self.__ano = input('ano: ')
+      self.__ano = input('ano (YYY): ')
       try:
         ano = datetime.strptime(self.__ano, '%Y').date()
       except(ValueError, TypeError):
