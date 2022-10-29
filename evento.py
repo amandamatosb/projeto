@@ -32,12 +32,12 @@ class Evento:
 
       if codigo == 0:
         for e in self.eventos:
-          print('-=' * 30)
+          print('-=' * 20)
           for chave, valor in e.items():
             print(f'{chave} = {valor} ', end = '')
             print()
 
-        print('-=' * 30)
+        print('-=' * 20)
         input('\nenter para voltar')
         self.modificar_evento()
 
@@ -50,12 +50,17 @@ class Evento:
         elif resposta == 2:
           pass
         else: 
-          raise ValueError()  
+         raise ValueError()  
           
+      elif self.eventos[codigo - 1] == ' ':
+          print('\nnão existe esse evento')
+          input('\nenter para voltar')
+          self.excluir_evento() 
+      
       else:
+        self.__data_evento.datas.pop(codigo-1)
         self.eventos.pop(codigo-1)
-        self.__cod_evento = codigo
-        evento['código'] = self.__cod_evento
+        evento['código'] = codigo
         os.system('clear')
         print('EVENTO')
         evento['nome'] = self.__nome_evento = input('nome: ')
@@ -64,7 +69,7 @@ class Evento:
         os.system('clear')
         evento['local'] = self.__local_evento = input('local: ')
 
-        self.eventos.append(evento.copy())
+        self.eventos.insert(codigo-1, evento.copy())
 
     except:
       print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')
@@ -78,12 +83,12 @@ class Evento:
       codigo = int(input('digite o código do evento que deseja excluir: '))
       if codigo == 0:
         for e in self.eventos:
-          print('-=' * 30)
+          print('-=' * 20)
           for chave, valor in e.items():
             print(f'{chave} = {valor} ', end = '')
             print()
             
-        print('-=' * 30)
+        print('-=' * 20)
         input('\nenter para voltar')
         self.excluir_evento()     
         
@@ -98,8 +103,14 @@ class Evento:
         else: 
           raise ValueError()
           
+      elif self.eventos[codigo - 1] == ' ':
+          print('\nnão existe esse evento')
+          input('\nenter para voltar')
+          self.excluir_evento() 
+        
       else:
         self.eventos.pop(codigo-1)
+        self.eventos.insert(codigo-1, ' ')
         
     except(TypeError, ValueError):
       print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')

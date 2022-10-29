@@ -15,7 +15,7 @@ class Calendario:
     
     while True:
       os.system('clear')
-      self.__ano = input('ano (YYY): ')
+      self.__ano = input('ano(YYY): ')
       try:
         ano = datetime.strptime(self.__ano, '%Y').date()
       except(ValueError, TypeError):
@@ -70,9 +70,6 @@ class Calendario:
     
     data = f"{dia}/{mes}/{ano} às {hora}"
     os.system('clear')
-    print('data:', data)
-    
-    time.sleep(3)
     self.data_ocupada(data)
     return self.datas[len(self.datas)-1]
 
