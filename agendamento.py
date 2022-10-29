@@ -25,7 +25,7 @@ class Agendamento:
         raise ValueError()
 
     except(ValueError, TypeError):
-      print('\033[0;49;94m\n*mano que* \nvoltando...\033[m')
+      print('\033[0;49;94m\n*mano que* \n voltando...\033[m')
       time.sleep(4)
       self.menu_agendamento()
       
@@ -53,7 +53,7 @@ class Agendamento:
         raise ValueError()
 
     except(ValueError, TypeError):
-      print('\033[0;49;94m\n*mano que* \nvoltando...\033[m')
+      print('\033[0;49;94m\n*mano que* \n voltando...\033[m')
       time.sleep(4)
       self.adicionar_evento()
 

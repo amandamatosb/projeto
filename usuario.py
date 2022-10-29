@@ -29,7 +29,7 @@ class Usuario:
           break
           
       except(ValueError):
-        print('\033[0;49;31m/email inválido!/\033[m')
+        print('\033[0;49;31m/email inválido! (tente usar @gmail.com)/\033[m')
         input('enter para tentar novamente')
       
     while True: 
@@ -89,6 +89,7 @@ class Usuario:
 
     else:
       print("\033[0;49;32m/senha correta/\033[m")
+      print('carregando...')
       time.sleep(5)
       self.escolher_funcoes(email_digitado, rsenha)
 
@@ -110,7 +111,7 @@ class Usuario:
         raise ValueError()
         
     except(TypeError, ValueError):
-      print('\033[0;49;94m\n*eita mano, deu erro aq* \nvoltando...\033[m')
+      print('\033[0;49;94m\n*eita mano, deu erro aq* \n voltando...\033[m')
       time.sleep(4)
       os.system('clear')
       self.escolher_funcoes(email_digitado, rsenha)
@@ -128,7 +129,7 @@ class Usuario:
       self.escolher_funcoes(email_digitado, rsenha)
 
     except(ValueError, TypeError):
-      print('\033[0;49;94m\n*eita mano, deu erro aq* \nvoltando...\033[m')
+      print('\033[0;49;94m\n*eita mano, deu erro aq* \n voltando...\033[m')
       time.sleep(4)
       os.system('clear')
       self.exibir_dados(email_digitado, rsenha)

@@ -72,7 +72,7 @@ class Evento:
         self.eventos.insert(codigo-1, evento.copy())
 
     except:
-      print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')
+      print('\033[0;49;94m\n*que? a não velho* \n voltando...\033[m')
       time.sleep(4)
       self.modificar_evento()
 
@@ -113,7 +113,7 @@ class Evento:
         self.eventos.insert(codigo-1, ' ')
         
     except(TypeError, ValueError):
-      print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')
+      print('\033[0;49;94m\n*que? a não velho* \n voltando...\033[m')
       time.sleep(4)
       self.excluir_evento()
       

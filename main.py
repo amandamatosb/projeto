@@ -12,7 +12,7 @@ def comeco():
     resposta = int(input('-> '))
     if resposta == 1:
       if len(usuarios) == 0:
-        print('\033[0;49;94m\n*vish! não tem sequer um cadastro no nosso sistema* \nvoltando...\033[m')
+        print('\033[0;49;94m\n*vish! não tem sequer um cadastro no nosso sistema* \n voltando...\033[m')
         time.sleep(5)
         os.system('clear')
         comeco()
@@ -28,17 +28,17 @@ def comeco():
 
     elif resposta == 3:
       file = open('planner.txt', 'w+')
-      file.write('INTEGRANTES DO PROJETO: ')
-      file.write('\nAmanda Barros Matos')
-      file.write('\nLivia Gabriele Campos Lima')
-      file.write('\nLarissa Cristina Nunes Guarates')
-      file.write('\n\nNós somos do grupo Áries+Libra ')
-      file.write('e estamos desenvolvendo esse sistema de Planner')
-      file.write('\n\nMatérias:')
-      file.write('\nProgramação Orientada a Objetos')
-      file.write('\nLinguagem de Programação')
-      file.write('\nFundamentos e Análises de Sistema')
-      file.write('\nBanco de Dados')
+      file.write('\nINTEGRANTES DO PROJETO: ')
+      file.write('\n Amanda Barros Matos')
+      file.write('\n Ana Beatriz Pimenta Coelho')
+      file.write('\n Livia Gabriele Campos Lima')
+      file.write('\n Larissa Cristina Nunes Guarates')
+      file.write('\n\nNós somos do grupo Áries+Libra+Sagitário ')
+      file.write('\n\nMATÉRIAS:')
+      file.write('\n Programação Orientada a Objetos')
+      file.write('\n Linguagem de Programação')
+      file.write('\n Fundamentos e Análises de Sistema')
+      file.write('\n Banco de Dados')
       file.seek(0,0)
       print(file.read())
       file.seek(0,0)
@@ -52,7 +52,7 @@ def comeco():
       raise ValueError()
 
   except (TypeError, ValueError):
-    print('\033[0;49;94m\n*calma ae mano, tá querendo ir aonde??* \nvoltando...\033[m')
+    print('\033[0;49;94m\n*calma ae mano, tá querendo ir aonde??* \n voltando...\033[m')
     time.sleep(4)
     os.system('clear')
     comeco()

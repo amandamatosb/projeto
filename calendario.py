@@ -19,7 +19,7 @@ class Calendario:
       try:
         ano = datetime.strptime(self.__ano, '%Y').date()
       except(ValueError, TypeError):
-        print('\033[0;49;94m\n*digite certo pls* \nvoltando...\033[m')
+        print('\033[0;49;94m\n*digite certo pls* \n voltando...\033[m')
         time.sleep(4)
       else:
         break
@@ -33,7 +33,7 @@ class Calendario:
       try:
         mes = datetime.strptime(self.__mes, '%m').date()
       except(ValueError, TypeError):
-        print('\033[0;49;94m\n*digite certo pls* \nvoltando...\033[m')
+        print('\033[0;49;94m\n*digite certo pls* \n voltando...\033[m')
         time.sleep(4)
       else:
         break
@@ -47,7 +47,7 @@ class Calendario:
       try:
         dia = datetime.strptime(self.__dia, '%d').date()
       except(ValueError, TypeError):
-        print('\033[0;49;94m\n*digite certo pls* \nvoltando...\033[m')
+        print('\033[0;49;94m\n*digite certo pls* \n voltando...\033[m')
         time.sleep(4)
       else:
         break
@@ -61,7 +61,7 @@ class Calendario:
       try:
         hora = datetime.strptime(self.__hora, '%H:%M').date()
       except(ValueError, TypeError):
-        print('\033[0;49;94m\n*digite certo pls* \nvoltando...\033[m')
+        print('\033[0;49;94m\n*digite certo pls* \n voltando...\033[m')
         time.sleep(4)
       else:
         break
