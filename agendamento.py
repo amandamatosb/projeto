@@ -61,11 +61,14 @@ class Agendamento:
     os.system('clear')
     print('\033[0;49;35mPLANNER - AGENDAMENTO\033[m')
     for e in self.__evento.eventos:
-      print('-=' * 30)
-      for chave, valor in e.items():
-        print(f'{chave} = {valor} ', end = '')
-        print()
-    print('-=' * 30)  
+      if e == ' ':
+        pass
+      else:
+        print('-=' * 20)
+        for chave, valor in e.items():
+          print(f'{chave} = {valor} ', end = '')
+          print()
+    print('-=' * 20)  
     input('\nenter para voltar')
     self.menu_agendamento()
     
