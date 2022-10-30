@@ -8,7 +8,7 @@ usuario = Usuario()
 def comeco():
   try:
     print('\033[0;49;35mPLANNER - INÍCIO\033[m')
-    print('1 - login \n2 - cadastro \n3 - ver sobre o sistema')
+    print('1 - login \n2 - cadastro \n3 - ver sobre o sistema\n4 - banco de dados')
     resposta = int(input('-> '))
     if resposta == 1:
       if len(usuarios) == 0:
@@ -47,7 +47,35 @@ def comeco():
       input('\nenter para voltar;)')
       os.system('clear')
       comeco()
-      
+
+    elif resposta == 4:
+      if len(usuarios) == 0:
+        print('\033[0;49;94m\n*vish! não tem sequer um cadastro no nosso sistema* \nvoltando...\033[m')
+        time.sleep(5)
+        os.system('clear')
+        comeco()
+      else:
+        os.system('clear')
+        print('- BANCO DE DADOS DOS CADASTROS')
+        print('1 - ver banco de dados \n2 - excluir algum usuário\n3 - voltar')
+        resposta = int(input('-> '))
+        if resposta == 1:
+          usuario.ler_bd()
+          os.system('clear')
+          comeco()
+          
+        elif resposta == 2:
+          usuario.excluir_dados()
+          os.system('clear')
+          comeco()
+
+        elif resposta == 3:
+          os.system('clear')
+          comeco()
+
+        else:
+          raise ValueError()
+        
     else:
       raise ValueError()
 

@@ -3,6 +3,7 @@ import time
 from agendamento import Agendamento
 global eventos_usuarios
 import re 
+import sqlite3
 usuarios = []
 email = []
 eventos_usuarios = {}
@@ -61,6 +62,7 @@ class Usuario:
     
     email.append(self.__email)
     usuarios.extend((self.__nome, self.__email, self.__senha))
+    self.bancodedados()
 
   def fazer_login(self):
     os.system('clear')
@@ -139,4 +141,76 @@ class Usuario:
       self.consultar_agendamento(email_digitado)
     else:
       eventos_usuarios[email_digitado].menu_agendamento()
+
+  def bancodedados(self):
+   #conectando
+    conexao = sqlite3.connect('usuarios.db')
+    
+    #definindo um cursor
+    cursor = conexao.cursor()
+    
+    #criando tabela
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS usuarios (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            email TEXT NOT NULL
+    );
+    """)
+    
+    #inserindo dados
+    cursor.execute("""
+    INSERT INTO usuarios (nome, email)
+    VALUES (?,?)
+    """, (self.__nome, self.__email))
+    
+    conexao.commit()
+    
+    #desconectando
+    conexao.close()
+    
+  def ler_bd(self):
+    #conectando
+    conexao = sqlite3.connect('usuarios.db')
+    
+    #definindo um cursor
+    cursor = conexao.cursor()
+
+    print('\ndeu tudo certo *-*\n')
+    
+    #lendo dados
+    cursor.execute("""
+    SELECT * FROM usuarios;
+    """)
+    
+    for linha in cursor.fetchall():
+        print(linha)
+    
+    #desconectando
+    conexao.close()
+
+    input('\nenter para voltar')
+    
+  def excluir_dados(self):
+    #conectando
+    conexao = sqlite3.connect('usuarios.db')
+    
+    #definindo um cursor
+    cursor = conexao.cursor()
+
+    id_usuario = int(input('\nid do usuário: '))
+    
+    cursor.execute("""
+    DELETE FROM usuarios
+    WHERE id = ?
+    """, (id_usuario,))
+
+    conexao.commit()
+    
+    print('\nexcluido com sucesso *-*')
+    
+    #desconectando
+    conexao.close()
+
+    input('\nenter para voltar')
       
