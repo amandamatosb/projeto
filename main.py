@@ -16,16 +16,22 @@ def comeco():
     janela.configure(bg = a)
     janela.geometry('400x300+200+200')
     texto_inicio = Label(janela, bg = a, fg = v, text = 'PLANNER - INÍCIO')
+    texto_inicio.configure(font=("Times New Roman", 12, "italic"))
     texto_inicio.place(x = '150', y = '20')
     texto_login = Label(janela, bg = a, fg = v, text = '1 - Login')
+    texto_login.configure(font=("Times New Roman", 9))
     texto_login.place(x = '50', y = '50')
     texto_cadastro = Label(janela, bg = a, fg = v, text = '2 - Cadastro')
+    texto_cadastro.configure(font=("Times New Roman", 9))
     texto_cadastro.place(x = '50', y = '70')
     texto_sistema = Label(janela, bg = a, fg = v, text = '3 - Ver sobre o sistema')
+    texto_sistema.configure(font=("Times New Roman", 9))
     texto_sistema.place(x = '50', y = '90')
     texto_bd = Label(janela, bg = a, fg = v, text = '4 - Banco de dados')
+    texto_bd.configure(font=("Times New Roman", 9))
     texto_bd.place(x = '50', y = '110')
     entrada = Entry(janela)
+    entrada.configure(font=("Times New Roman", 9))
     entrada.place(x = '50', y = '140')
 
     def bt_click():
@@ -33,6 +39,7 @@ def comeco():
         if int(entrada.get()) == 1:
           if len(usuarios) == 0:
             texto_aviso = Label(janela, text = '*vish! não tem sequer um cadastro no nosso sistema* \nfaça um!')
+            texto_aviso.configure(font=("Times New Roman", 9))
             texto_aviso.place(x = '50', y = '210')
             time.sleep(4)
           else:
@@ -100,10 +107,11 @@ def comeco():
         os.system('clear')
         comeco()
         
-    botao = Button(janela, text = 'enviar', foreground = v, command = bt_click)
+    botao = Button(janela, text = 'enviar', fg= v, command = bt_click)
     botao.place(x = '50', y = '170')
 
-    resposta_botao = Label(janela, background = a, foreground = v, text = '')
+    resposta_botao = Label(janela, bg = a, fg = v, text = '')
+    
     resposta_botao.place(x = '50', y = '200')
     janela.mainloop()
 
