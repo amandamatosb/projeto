@@ -33,9 +33,9 @@ class Evento:
       texto_voltar = Label (janela_evento, bg = a, fg = v, text = '3 - Voltar')
       texto_voltar.configure(font= ('Times New Roman', 9))
       texto_voltar.place(x = '50', y = '90')
-  entrada = Entry(janela_evento)
-  entrada.configure(font=("Times New Roman", 9))
-  entrada.place(x = '50', y = '140')
+      entrada = Entry(janela_evento)
+      entrada.configure(font=("Times New Roman", 9))
+      entrada.place(x = '50', y = '140')
 
 
   def agendar_evento(self):
