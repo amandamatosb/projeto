@@ -8,28 +8,6 @@ b = '#FFFFFF'
 a = '#BCD2EE'
 v = '#B22222'
 
-def Evento():
-  janela_evento = Tk()
-  janela_evento.title('Agenda')
-  janela_evento.configure(bg = a)
-  janela_evento.geometry('400x300+200+200')
-  texto_agenda = Label (janela_evento, bg = a, fg = v, text = 'PLANNER - AGENDA ')
-  texto_agenda.configure(font=('Times New Roman', 12,'italic'))
-  texto_agenda.place(x = '150', y = '20')
-  texto_evento =  Label(janela_evento, bg = a, fg = v, text = '1 - Eventos')
-  texto_evento.configure(font=('Time New Roman', 9))
-  texto_evento.place(x = '150', y = '50')
-  texto_agendamento = Label (janela_evento, bg = a, fg = v, text = '2 - Ver agendmento ')
-  texto_agendamento.configure(font = ('Times New Roman', 9)) 
-  texto_agendamento.place( x = '50', y = '70')
-  texto_voltar = Label (janela_evento, bg = a, fg = v, text = '3 - Voltar')
-  texto_voltar.configure(font= ('Times New Roman', 9))
-  texto_voltar.place(x = '50', y = '90')
-  entrada = Entry(janela_evento)
-  entrada.configure(font=("Times New Roman", 9))
-  entrada.place(x = '50', y = '140')
-
-
 class Evento:
   def __init__(self):
     self.__cod_evento = 0
@@ -37,6 +15,28 @@ class Evento:
     self.__data_evento = Calendario()
     self.__local_evento = ''
     self.eventos = []
+    
+    def Evento():
+      janela_evento = Tk()
+      janela_evento.title('Agenda')
+      janela_evento.configure(bg = a)
+      janela_evento.geometry('400x300+200+200')
+      texto_agenda = Label (janela_evento, bg = a, fg = v, text = 'PLANNER - AGENDA')
+      texto_agenda.configure(font=('Times New Roman', 12,'italic'))
+      texto_agenda.place(x = '150', y = '20')
+      texto_evento =  Label(janela_evento, bg = a, fg = v, text = '1 - Eventos')
+      texto_evento.configure(font=('Time New Roman', 9))
+      texto_evento.place(x = '150', y = '50')
+      texto_agendamento = Label (janela_evento, bg = a, fg = v, text = '2 - Ver agendamento ')
+      texto_agendamento.configure(font = ('Times New Roman', 9))
+      texto_agendamento.place( x = '50', y = '70')
+      texto_voltar = Label (janela_evento, bg = a, fg = v, text = '3 - Voltar')
+      texto_voltar.configure(font= ('Times New Roman', 9))
+      texto_voltar.place(x = '50', y = '90')
+  entrada = Entry(janela_evento)
+  entrada.configure(font=("Times New Roman", 9))
+  entrada.place(x = '50', y = '140')
+
 
   def agendar_evento(self):
     self.__cod_evento += 1
