@@ -1,7 +1,34 @@
 import os
 from calendario import Calendario
 import time
+from tkinter import *
 evento = {}
+
+b = '#FFFFFF'
+a = '#BCD2EE'
+v = '#B22222'
+
+def Evento():
+  janela_evento = Tk()
+  janela_evento.title('Agenda')
+  janela_evento.configure(bg = a)
+  janela_evento.geometry('400x300+200+200')
+  texto_agenda = Label (janela_evento, bg = a, fg = v, text = 'PLANNER - AGENDA ')
+  texto_agenda.configure(font=('Times New Roman', 12,'italic'))
+  texto_agenda.place(x = '150', y = '20')
+  texto_evento =  Label(janela_evento, bg = a, fg = v, text = '1 - Eventos')
+  texto_evento.configure(font=('Time New Roman', 9))
+  texto_evento.place(x = '150', y = '50')
+  texto_agendamento = Label (janela_evento, bg = a, fg = v, text = '2 - Ver agendmento ')
+  texto_agendamento.configure(font = ('Times New Roman', 9)) 
+  texto_agendamento.place( x = '50', y = '70')
+  texto_voltar = Label (janela_evento, bg = a, fg = v, text = '3 - Voltar')
+  texto_voltar.configure(font= ('Times New Roman', 9))
+  texto_voltar.place(x = '50', y = '90')
+  entrada = Entry(janela_evento)
+  entrada.configure(font=("Times New Roman", 9))
+  entrada.place(x = '50', y = '140')
+
 
 class Evento:
   def __init__(self):
@@ -116,4 +143,4 @@ class Evento:
       print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')
       time.sleep(4)
       self.excluir_evento()
-      
+Evento()
