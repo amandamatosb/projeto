@@ -29,8 +29,22 @@ def menu_agendamento():
   entrada_agendamento = Entry(janela_agendamento)
   entrada_agendamento.configure(font=('Times New Roman', 9))
   entrada_agendamento.place(x = '50', y = '140')
-  ##
-  def menu_agendamento1(self):
+  ##botao
+
+def bt_click():
+    botao_enviar = Button(janela_agendamento, text = 'voltar', command = bt_click_voltar)
+    botao_enviar.place(x = '60', y = '150')
+
+    botao_enviar = Button(janela_agendamento,text = 'Enviar', command = bt_click)
+    botao_enviar.place(x = '70', y = '160')
+
+    resposta_agendar = Label(janela_cadastro, background = a, text = '')
+    resposta_agendar.place(x = '60', y = '60')
+    resposta_ver = Label(janela_cadastro, background = a, text = '')
+    resposta_ver.place(x = '60', y = '90')
+    resposta_voltar = Label(janela_cadastro, background = a, text = '')
+
+    janela_agendamento.mainloop()
     try:
       os.system('clear')
       print('\033[0;49;35mPLANNER - AGENDA\033[m')
@@ -51,7 +65,7 @@ def menu_agendamento():
       time.sleep(4)
       self.menu_agendamento()
       
-  def adicionar_evento(self):
+#def adicionar_evento(self):
     try:
       os.system('clear')
       print('\033[0;49;35mPLANNER - EVENTO\033[m')
@@ -79,7 +93,7 @@ def menu_agendamento():
       time.sleep(4)
       self.adicionar_evento()
 
-  def exibir_eventos(self):
+  #def exibir_eventos(self):
     os.system('clear')
     print('\033[0;49;35mPLANNER - AGENDAMENTO\033[m')
     for e in self.__evento.eventos:
