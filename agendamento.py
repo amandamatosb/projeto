@@ -78,16 +78,15 @@ class Agendamento:
 
     def exibir_eventos(self):
       janela_exibir = Tk()
-      janela_exibir.title('PLANNER - AGENDAMENTO')
+      janela_exibir.title('PLANER _ AGENDAMENTO')
       janela_exibir.configure(bg = a)
       janela_exibir.geometry('400x300+200+200')
-      texto_exibir = Label(janela_exibir, bg = a, text = '1 - Exibir Eventos')
+      texto_exibir =Label(janela_exibir, bg = a, text = '1 - Exibir eventos')
       texto_exibir.place(x = '50', y = '50')
       entrada_exibir = Entry(janela_exibir)
       entrada_exibir.place(x = '50', y = '120')
-      
-      botao_voltar = Button(janela_eventos, text = 'Voltar', command = eventos)
+
+      botao_voltar =Button(janela_eventos, text = 'Voltar', command = eventos)
       botao_voltar.place(x = '90', y = '150')
       self.menu_agendamento()
-
       janela_exibir.mainloop()
