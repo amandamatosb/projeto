@@ -4,8 +4,9 @@ from agendamento import Agendamento
 from tkinter.messagebox import *
 global eventos_usuarios
 import re
-import sqlite3
 from tkinter import *
+from banco_de_dados import *
+import sqlite3
 
 usuarios = []
 email = []
@@ -69,7 +70,6 @@ class Usuario:
 
             email.append(self.__email)
             usuarios.extend((self.__nome, self.__email, self.__senha))
-            self.bancodedados()
 
             texto_nome.destroy()
             texto_email.destroy()
@@ -83,6 +83,7 @@ class Usuario:
             resposta.place(x = '60', y = '60')
 
             def bt_click1():
+                cadastrar(self.__nome, self.__email)
                 janela_cadastro.destroy()
 
             botao1 = Button(janela_cadastro, text='voltar', command=bt_click1)
@@ -90,8 +91,6 @@ class Usuario:
 
         botao = Button(janela_cadastro, text='enviar', command=bt_click)
         botao.place(x='70', y='160')
-
-        janela_cadastro.mainloop()
 
     def fazer_login(self):
         janela_login = Tk()
@@ -216,75 +215,3 @@ class Usuario:
             self.consultar_agendamento(email_digitado)
         else:
             eventos_usuarios[email_digitado].menu_agendamento()
-
-    def bancodedados(self):
-        # conectando
-        conexao = sqlite3.connect('usuarios.db')
-
-        # definindo um cursor
-        cursor = conexao.cursor()
-
-        # criando tabela
-        cursor.execute("""
-    CREATE TABLE IF NOT EXISTS usuarios (
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            nome TEXT NOT NULL,
-            email TEXT NOT NULL
-    );
-    """)
-
-        # inserindo dados
-        cursor.execute("""
-    INSERT INTO usuarios (nome, email)
-    VALUES (?,?)
-    """, (self.__nome, self.__email))
-
-        conexao.commit()
-
-        # desconectando
-        conexao.close()
-
-    def ler_bd(self):
-        # conectando
-        conexao = sqlite3.connect('usuarios.db')
-
-        # definindo um cursor
-        cursor = conexao.cursor()
-
-        print('\ndeu tudo certo *-*\n')
-
-        # lendo dados
-        cursor.execute("""
-    SELECT * FROM usuarios;
-    """)
-
-        for linha in cursor.fetchall():
-            print(linha)
-
-        # desconectando
-        conexao.close()
-
-        input('\nenter para voltar')
-
-    def excluir_dados(self):
-        # conectando
-        conexao = sqlite3.connect('usuarios.db')
-
-        # definindo um cursor
-        cursor = conexao.cursor()
-
-        id_usuario = int(input('\nid do usuário: '))
-
-        cursor.execute("""
-    DELETE FROM usuarios
-    WHERE id = ?
-    """, (id_usuario,))
-
-        conexao.commit()
-
-        print('\nexcluido com sucesso *-*')
-
-        # desconectando
-        conexao.close()
-
-        input('\nenter para voltar')

@@ -4,10 +4,11 @@ import os
 from usuario import usuarios
 from tkinter import *
 from tkinter.messagebox import *
+from banco_de_dados import *
+
 usuario = Usuario()
 b = '#FFFFFF'
 a = '#BCD2EE'
-
 
 def comeco():
     try:
@@ -63,30 +64,10 @@ def comeco():
                     resposta_botao['text'] = ('(abra o arquivo de texto)')
 
                 elif int(entrada.get()) == 4:
-                    if len(usuarios) == 0:
-                        print(showerror("sem cadastros", "não há sequer um cadastro no nosso sistema, faça um!"))
+                    janela.destroy()
+                    banco()
+                    comeco()
 
-                    else:
-                        os.system('clear')
-                        print('- BANCO DE DADOS DOS CADASTROS')
-                        print('1 - ver banco de dados \n2 - excluir algum usuário\n3 - voltar')
-                        resposta = int(input('-> '))
-                        if resposta == 1:
-                            usuario.ler_bd()
-                            os.system('clear')
-                            comeco()
-
-                        elif resposta == 2:
-                            usuario.excluir_dados()
-                            os.system('clear')
-                            comeco()
-
-                        elif resposta == 3:
-                            os.system('clear')
-                            comeco()
-
-                        else:
-                            raise ValueError()
 
                 else:
                     raise ValueError()
