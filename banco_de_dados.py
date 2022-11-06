@@ -9,7 +9,7 @@ a = '#BCD2EE'
 
 def banco():
     janela_bd = Tk()
-    janela_bd.title('cadastros dos usuarios')
+    janela_bd.title('cadastros.dos.usuarios')
     janela_bd.config(bg=a)
     janela_bd.geometry('400x300+200+200')
     texto_inicio_bd = Label(janela_bd, bg=a, text='- BANCO DE DADOS DOS CADASTROS -')
