@@ -71,7 +71,7 @@ class Agendamento:
           botao_enviar.place(x = '50', y = '150')
 
           botao_voltar = Button(janela_eventos, text = 'Voltar', command = menu_agendamento)
-          botao_voltar.place(x = '90', y='150')
+          botao_voltar.place(x = '90', y = '150')
           
 
           janela_eventos.mainloop()
@@ -83,17 +83,11 @@ class Agendamento:
       janela_exibir.geometry('400x300+200+200')
       texto_exibir = Label(janela_exibir, bg = a, text = '1 - Exibir Eventos')
       texto_exibir.place(x = '50', y = '50')
-      entrada_exibir
+      entrada_exibir = Entry(janela_exibir)
+      entrada_exibir.place(x = '50', y = '120')
       
-      
-      for e in self.__evento.eventos:
-            if e == ' ':
-                pass
-            else:
-                print('-=' * 20)
-                for chave, valor in e.items():
-                    print(f'{chave} = {valor} ', end='')
-                    print()
-        print('-=' * 20)
-        input('\nenter para voltar')
-        self.menu_agendamento()
+      botao_voltar = Button(janela_eventos, text = 'Voltar', command = eventos)
+      botao_voltar.place(x = '90', y = '150')
+      self.menu_agendamento()
+
+      janela_exibir.mainloop()
