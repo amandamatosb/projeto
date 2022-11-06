@@ -7,13 +7,13 @@ from tkinter.messagebox import *
 from banco_de_dados import *
 
 usuario = Usuario()
-b = '#FFFFFF'
+
 a = '#BCD2EE'
 
 def comeco():
     try:
         janela = Tk()
-        janela.title('Planner')
+        janela.title('planner')
         janela.configure(bg=a)
         janela.geometry('400x300+200+200')
         texto_inicio = Label(janela, bg=a, text='PLANNER - INÍCIO')

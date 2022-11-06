@@ -1,84 +1,115 @@
-import calendar
-import os
-from datetime import date, time, datetime, timedelta
-import time
+from datetime import date
+from tkinter import *
+from tkcalendar import DateEntry
+import tkinter as tk
+import tkinter.messagebox as tkMessageBox
+import tkinter.messagebox
+from tkinter.messagebox import *
+
+a = '#BCD2EE'
 
 class Calendario:
-  def __init__(self):
-    self.__dia = None
-    self.__mes = None
-    self.__ano = None
-    self.__hora = None
-    self.datas = []
+    def __init__(self):
+        self.datas = []
 
-  def definir_data(self):
-    
-    while True:
-      os.system('clear')
-      self.__ano = input('ano(YYY): ')
-      try:
-        ano = datetime.strptime(self.__ano, '%Y').date()
-      except(ValueError, TypeError):
-        print('\033[0;49;94m\n*digite certo pls* \nvoltando...\033[m')
-        time.sleep(4)
-      else:
-        break
+    def definir_data(self):
+        janela_calendario = Tk()
+        janela_calendario.title('data')
+        janela_calendario.configure(bg=a)
+        janela_calendario.geometry('500x300+200+200')
 
-    ano = int(self.__ano)
-    
-    while True:
-      os.system('clear')
-      print(calendar.calendar(ano))
-      self.__mes = input('número do mês: ')
-      try:
-        mes = datetime.strptime(self.__mes, '%m').date()
-      except(ValueError, TypeError):
-        print('\033[0;49;94m\n*digite certo pls* \nvoltando...\033[m')
-        time.sleep(4)
-      else:
-        break
+        class MyDateEntry(DateEntry):
+            def __init__(self, master=None, **kw):
+                DateEntry.__init__(self, master=None, **kw)
+                self._top_cal.configure(bg='black', bd=1)
+                tk.Label(self._top_cal, bg='gray90', anchor='w',
+                         text='hoje: %s' % date.today().strftime('%d/%m/%Y')).pack(fill='x')
 
-    mes = int(self.__mes)
-    
-    while True:
-      os.system('clear')
-      print(calendar.month(ano, mes))
-      self.__dia = input('dia: ')
-      try:
-        dia = datetime.strptime(self.__dia, '%d').date()
-      except(ValueError, TypeError):
-        print('\033[0;49;94m\n*digite certo pls* \nvoltando...\033[m')
-        time.sleep(4)
-      else:
-        break
+                texto = Label(janela_calendario, bg=a, text = '- escolha a data -')
+                texto.place(x = '50', y = '170')
 
-    dia = int(self.__dia)
+        def bt_click():
+            resultado = tkinter.messagebox.askquestion("confirmação", "confirma essa data?",
+                                                               icon="warning")
+            if resultado == 'yes':
+                global data
+                data = ajustes.get_date().strftime('%d/%m/%Y')
+                janela_calendario.destroy()
+                self.definir_horario()
 
-    while True:
-      os.system('clear')
-      print(f'{dia}/{mes}/{ano}')
-      self.__hora = input('hora(hh:mm): ')
-      try:
-        hora = datetime.strptime(self.__hora, '%H:%M').date()
-      except(ValueError, TypeError):
-        print('\033[0;49;94m\n*digite certo pls* \nvoltando...\033[m')
-        time.sleep(4)
-      else:
-        break
+            else:
+                janela_calendario.destroy()
+                self.definir_data()
 
-    hora = str(self.__hora)
-    
-    data = f"{dia}/{mes}/{ano} às {hora}"
-    os.system('clear')
-    self.data_ocupada(data)
-    return self.datas[len(self.datas)-1]
+        botao = Button(janela_calendario, text='enviar', command=bt_click)
+        botao.place(x='50', y='200')
 
-  def data_ocupada(self, data):
-    if data not in self.datas:
-      self.datas.append(data)
 
-    else:
-      os.system('clear')
-      print(f'já tem evento marcado para {data}, mude a data...')
-      time.sleep(5)
-      self.definir_data()
+        # criando a entrada e mudando os ajustes de cor do calendario
+        ajustes = MyDateEntry(janela_calendario, year=2022, month=11, day=9,
+                         selectbackground='gray80',
+                         selectforeground='black',
+                         normalbackground='white',
+                         normalforeground='black',
+                         background='gray90',
+                         foreground='black',
+                         bordercolor='gray90',
+                         othermonthforeground='gray50',
+                         othermonthbackground='white',
+                         othermonthweforeground='gray50',
+                         othermonthwebackground='white',
+                         weekendbackground='white',
+                         weekendforeground='black',
+                         headersbackground='white',
+                         headersforeground='gray70', locale='pt_br')
+        ajustes.pack()
+        janela_calendario.mainloop()
+        return self.datas[len(self.datas) - 1]
+
+    def definir_horario(self):
+        janela_horario = Tk()
+        janela_horario.title('data')
+        janela_horario.configure(bg=a)
+        janela_horario.geometry('400x300+200+200')
+
+        lb_horario = Listbox()
+        lb_horario.pack(side=LEFT, fill="both")
+        sb = Scrollbar()
+        sb.pack(side=LEFT, fill="y")
+        sb.configure(command=lb_horario.yview)
+        lb_horario.configure(yscrollcommand=sb.set)
+
+        for h in range(0, 24):
+            for m in range(0, 60, 5):
+                lb_horario.insert(END, f'{h}:{m}')
+            lb_horario.insert(END, '')
+
+
+        def bt_click():
+            resultado = tkinter.messagebox.askquestion("confirmação", "confirma este horário?",
+                                                       icon="warning")
+            if resultado == 'yes':
+                horario = str(lb_horario.get(ACTIVE))
+                data_do_evento = f"{data} às {horario}"
+                self.data_ocupada(data_do_evento)
+                janela_horario.destroy()
+
+            else:
+                janela_horario.destroy()
+                self.definir_horario()
+
+        botao = Button(janela_horario, text='enviar', command=bt_click)
+
+        texto = Label(janela_horario, bg=a, text=' - selecione o horário -')
+        texto.place(x='165', y='20')
+        botao.place(x='170', y='50')
+
+        janela_horario.mainloop()
+
+    def data_ocupada(self, data_do_evento):
+        if data_do_evento not in self.datas:
+            self.datas.append(data_do_evento)
+
+        else:
+            print(showerror("erro", 'já tem evento marcado para essa data'))
+            self.definir_data()

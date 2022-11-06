@@ -12,9 +12,7 @@ usuarios = []
 email = []
 eventos_usuarios = {}
 
-v = '#EE0000'
 a = '#BCD2EE'
-p = '#000000'
 
 
 class Usuario:
@@ -25,7 +23,7 @@ class Usuario:
 
     def realizar_cadastro(self):
         janela_cadastro = Tk()
-        janela_cadastro.title('Planner.cadastro')
+        janela_cadastro.title('planner.cadastro')
         janela_cadastro.configure(bg=a)
         janela_cadastro.geometry('400x300+200+200')
         texto_inicio = Label(janela_cadastro, bg=a, text='- CADASTRO -')
