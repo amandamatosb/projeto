@@ -83,12 +83,14 @@ class Usuario:
       def bt_click1():
         cadastrar(self.__nome, self.__email)
         janela_cadastro.destroy()
+        pass
 
       botao1 = Button(janela_cadastro, text='voltar', command=bt_click1)
       botao1.place(x='60', y='90')
 
     botao = Button(janela_cadastro, text='enviar', command=bt_click)
     botao.place(x='70', y='160')
+    janela_cadastro.mainloop()
 
   def fazer_login(self):
     janela_login = Tk()

@@ -2,6 +2,7 @@ import os
 from calendario import Calendario
 import time
 from tkinter import *
+from banco_eventos import *
 
 evento = {}
 
@@ -18,52 +19,53 @@ class Evento:
         self.__local_evento = ''
         self.eventos = []
 
-
     def agendar_evento(self):
         self.__cod_evento += 1
         evento['código'] = self.__cod_evento
-        os.system('clear')
-    
-        evento = Tk()
-        evento.title('Nome do Evento')
-        evento.configure(bg = a)
-        evento.geometry('300x300+200+200')
-    
-        menu_nome = Label(text = 'Nome: ', bg = a, fg = v)
-        menu_nome.place(x = 100, y = 70)
-        entrada1 = Entry(evento)
-        entrada1.place(x = 100, y = 100)
-    
-    def bit_click():
-      evento.destroy()
-      self.lugar_evento()
-    
-      botao = Button(evento, text = 'Próximo', command = bit_click)
-      botao.place(x = 100, y = 130)
-      
-      evento['data'] = self.__data_evento.definir_data()
-      os.system('clear')
 
-     def lugar_evento(self):
-       evento1 = Tk()
-      evento1.title('Local do Evento')
-      evento1.configure(bg = azul)
-      evento1.geometry('300x300+200+200')
-    
-      menu_local = Label(evento1, text = 'Local: ', bg = azul, fg = vermelho)
-      menu_local.place(x = 100, y = 70)
-      entrada2 = Entry(evento1)
-      entrada2.place(x = 100, y = 100)
+        janela_evento = Tk()
+        janela_evento.title('nome.evento')
+        janela_evento.configure(bg=a)
+        janela_evento.geometry('400x300+200+200')
+        texto_inicio = Label(janela_evento, bg=a, text='- AGENDANDO EVENTO -')
+        texto_inicio.place(x='130', y='20')
+        menu_nome = Label(janela_evento, bg=a, text='nome: ')
+        menu_nome.place(x='50', y='50')
+        entrada = Entry(janela_evento)
+        entrada.place(x='50', y='80')
 
+        def bt_click():
+            evento['nome'] = entrada.get()
+            janela_evento.destroy()
+            evento['data'] = self.__data_evento.definir_data()
+            self.lugar_evento()
 
-    def bit_click1():  
-      self.eventos.append(evento.copy())
-    
-    botao1 = Button(evento1, text = 'Salvar',command = bit_click1)
-    botao1.place(x = 100, y = 130)
+        botao = Button(janela_evento, text='próximo', command=bt_click)
+        botao.place(x='50', y='110')
 
+    def lugar_evento(self):
+        janela_lugar = Tk()
+        janela_lugar.title('nome.evento')
+        janela_lugar.configure(bg=a)
+        janela_lugar.geometry('400x300+200+200')
+        texto_inicio = Label(janela_lugar, bg=a, text='- AGENDANDO EVENTO -')
+        texto_inicio.place(x='130', y='20')
+        menu_lugar = Label(janela_lugar, bg=a, text='local: ')
+        menu_lugar.place(x='50', y='50')
+        entrada1 = Entry(janela_lugar)
+        entrada1.place(x='50', y='80')
 
-      self.eventos.append((evento['código'], evento['nome'],         evento['data'], evento['local']))
+        def bt_click1():
+            evento['local'] = entrada1.get()
+            self.eventos.append((evento['código'], evento['nome'], evento['data'], evento['local']))
+            cadastrar(evento['nome'], evento['data'], evento['local'])
+            print(showinfo('evento marcado', 'evento marcado com sucesso!'))
+            janela_lugar.destroy()
+            pass
+
+        botao1 = Button(janela_lugar, text='salvar', command=bt_click1)
+        botao1.place(x='50', y='110')
+
 
     def modificar_evento(self):
         try:
@@ -111,11 +113,13 @@ class Evento:
                 evento['local'] = self.__local_evento = input('local: ')
 
                 self.eventos.insert(codigo - 1, evento.copy())
+                print(showinfo('evento modificado', 'evento modificado com sucesso!'))
 
         except:
             print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')
             time.sleep(4)
             self.modificar_evento()
+
 
     def excluir_evento(self):
         try:
@@ -152,12 +156,9 @@ class Evento:
             else:
                 self.eventos.pop(codigo - 1)
                 self.eventos.insert(codigo - 1, ' ')
+                print(showinfo('evento removido', 'evento excluído com sucesso!'))
 
         except(TypeError, ValueError):
             print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')
             time.sleep(4)
             self.excluir_evento()
-
-
-agendar_evento = Evento()
-evento.nome_evento()

@@ -16,7 +16,7 @@ def banco():
     texto_inicio_bd.place(x='100', y='20')
     texto_ver = Label(janela_bd, bg=a, text='1 - ver banco de dados')
     texto_ver.place(x='50', y='50')
-    texto_excluir = Label(janela_bd, bg=a, text='2 - excluir algum usuário')
+    texto_excluir = Label(janela_bd, bg=a, text='2 - excluir algum usuário do bd')
     texto_excluir.place(x='50', y='70')
     texto_voltar = Label(janela_bd, bg=a, text='3 - voltar')
     texto_voltar.place(x='50', y='90')
