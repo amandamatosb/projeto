@@ -1,6 +1,7 @@
 import os
 from calendario import Calendario
 import time
+from tkinter import *
 
 evento = {}
 
@@ -22,14 +23,47 @@ class Evento:
         self.__cod_evento += 1
         evento['código'] = self.__cod_evento
         os.system('clear')
-        print('EVENTO')
-        evento['nome'] = self.__nome_evento = input('nome: ')
-        os.system('clear')
-        evento['data'] = self.__data_evento.definir_data()
-        os.system('clear')
-        evento['local'] = self.__local_evento = input('local: ')
+    
+        evento = Tk()
+        evento.title('Nome do Evento')
+        evento.configure(bg = a)
+        evento.geometry('300x300+200+200')
+    
+        menu_nome = Label(text = 'Nome: ', bg = a, fg = v)
+        menu_nome.place(x = 100, y = 70)
+        entrada1 = Entry(evento)
+        entrada1.place(x = 100, y = 100)
+    
+    def bit_click():
+      evento.destroy()
+      self.lugar_evento()
+    
+      botao = Button(evento, text = 'Próximo', command = bit_click)
+      botao.place(x = 100, y = 130)
+      
+      evento['data'] = self.__data_evento.definir_data()
+      os.system('clear')
 
-        self.eventos.append((evento['código'], evento['nome'], evento['data'], evento['local']))
+     def lugar_evento(self):
+       evento1 = Tk()
+      evento1.title('Local do Evento')
+      evento1.configure(bg = azul)
+      evento1.geometry('300x300+200+200')
+    
+      menu_local = Label(evento1, text = 'Local: ', bg = azul, fg = vermelho)
+      menu_local.place(x = 100, y = 70)
+      entrada2 = Entry(evento1)
+      entrada2.place(x = 100, y = 100)
+
+
+    def bit_click1():  
+      self.eventos.append(evento.copy())
+    
+    botao1 = Button(evento1, text = 'Salvar',command = bit_click1)
+    botao1.place(x = 100, y = 130)
+
+
+      self.eventos.append((evento['código'], evento['nome'],         evento['data'], evento['local']))
 
     def modificar_evento(self):
         try:
@@ -125,4 +159,5 @@ class Evento:
             self.excluir_evento()
 
 
-Evento()
+agendar_evento = Evento()
+evento.nome_evento()

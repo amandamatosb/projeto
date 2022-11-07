@@ -78,10 +78,10 @@ def ler_bd():
     janela_visao = Tk()
     janela_visao.title('cadastros.dos.usuarios')
     janela_visao.configure(bg=a)
-    janela_visao.geometry('700x300')
+    janela_visao.geometry('500x300')
 
-    scrollbary = Scrollbar(orient=VERTICAL)
-    scrollbarx = Scrollbar(orient=HORIZONTAL)
+    scrollbary = Scrollbar(janela_visao, orient=VERTICAL)
+    scrollbarx = Scrollbar(janela_visao, orient=HORIZONTAL)
 
     global arvore
     arvore = ttk.Treeview(janela_visao, columns=("id", "nome", "email"), selectmode="extended", height=300,
