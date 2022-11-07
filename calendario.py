@@ -66,6 +66,7 @@ class Calendario:
         return self.datas[len(self.datas) - 1]
 
     def definir_horario(self):
+        global janela_horario
         janela_horario = Tk()
         janela_horario.title('data')
         janela_horario.configure(bg=a)
@@ -80,7 +81,16 @@ class Calendario:
 
         for h in range(0, 24):
             for m in range(0, 60, 5):
-                lb_horario.insert(END, f'{h}:{m}')
+                if h < 10:
+                    if m < 10:
+                        lb_horario.insert(END, f'0{h}:0{m}')
+                    else:
+                        lb_horario.insert(END, f'0{h}:{m}')
+                else:
+                    if m < 10:
+                        lb_horario.insert(END, f'{h}:0{m}')
+                    else:
+                        lb_horario.insert(END, f'{h}:{m}')
 
         def bt_click():
             resultado = tkinter.messagebox.askquestion("confirmação", "confirma este horário?", icon="warning")
@@ -108,4 +118,5 @@ class Calendario:
 
         else:
             print(showerror("erro", 'já tem evento marcado para essa data'))
+            janela_horario.destroy()
             self.definir_data()

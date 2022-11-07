@@ -5,6 +5,7 @@ from usuario import usuarios
 from tkinter import *
 from tkinter.messagebox import *
 from banco_de_dados import *
+from banco_eventos import *
 
 usuario = Usuario()
 
@@ -24,10 +25,12 @@ def comeco():
     texto_cadastro.place(x='50', y='70')
     texto_sistema = Label(janela, bg=a, text='3 - ver sobre o sistema')
     texto_sistema.place(x='50', y='90')
-    texto_bd = Label(janela, bg=a, text='4 - banco de dados')
+    texto_bd = Label(janela, bg=a, text='4 - bd dos usuários')
     texto_bd.place(x='50', y='110')
+    texto_bd = Label(janela, bg=a, text='5 - bd dos eventos')
+    texto_bd.place(x='50', y='130')
     entrada = Entry(janela)
-    entrada.place(x='50', y='140')
+    entrada.place(x='50', y='160')
 
     def bt_click():
       try:
@@ -68,6 +71,11 @@ def comeco():
           banco()
           comeco()
 
+        elif int(entrada.get()) == 5:
+          janela.destroy()
+          banco_eventos()
+          comeco()
+
 
         else:
           raise ValueError()
@@ -76,10 +84,10 @@ def comeco():
         resposta_botao['text'] = ('*digite correto*')
 
     botao = Button(janela, text='enviar', command=bt_click)
-    botao.place(x='50', y='170')
+    botao.place(x='50', y='190')
 
     resposta_botao = Label(janela, bg=a, text='')
-    resposta_botao.place(x='50', y='200')
+    resposta_botao.place(x='50', y='220')
     janela.mainloop()
 
   except (TypeError, ValueError):

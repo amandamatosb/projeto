@@ -67,98 +67,41 @@ class Evento:
         botao1.place(x='50', y='110')
 
 
-    def modificar_evento(self):
-        try:
-            os.system('clear')
-            print('*caso esqueça do código do seu evento, digite 0 para a pergunta.')
-            codigo = int(input('digite o código do evento que deseja modificar: '))
-
-            if codigo == 0:
-                for e in self.eventos:
-                    print('-=' * 20)
-                    for chave, valor in e.items():
-                        print(f'{chave} = {valor} ', end='')
-                        print()
-
-                print('-=' * 20)
-                input('\nenter para voltar')
-                self.modificar_evento()
-
-            elif codigo > len(self.eventos) or codigo < 0:
-                print('\nnão existe esse código de evento no sistema.')
-                print('1 - tentar novamente \n2 - voltar ao agendamento ')
-                resposta = int(input('-> '))
-                if resposta == 1:
-                    self.modificar_evento()
-                elif resposta == 2:
-                    pass
-                else:
-                    raise ValueError()
-
-            elif self.eventos[codigo - 1] == ' ':
-                print('\nnão existe esse evento')
-                input('\nenter para voltar')
-                self.excluir_evento()
-
-            else:
-                self.__data_evento.datas.pop(codigo - 1)
-                self.eventos.pop(codigo - 1)
-                evento['código'] = codigo
-                os.system('clear')
-                print('EVENTO')
-                evento['nome'] = self.__nome_evento = input('nome: ')
-                os.system('clear')
-                evento['data'] = self.__data_evento.definir_data()
-                os.system('clear')
-                evento['local'] = self.__local_evento = input('local: ')
-
-                self.eventos.insert(codigo - 1, evento.copy())
-                print(showinfo('evento modificado', 'evento modificado com sucesso!'))
-
-        except:
-            print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')
-            time.sleep(4)
-            self.modificar_evento()
-
-
     def excluir_evento(self):
-        try:
-            os.system('clear')
-            print('*caso esqueça do código do seu evento, digite 0 para a pergunta.')
-            codigo = int(input('digite o código do evento que deseja excluir: '))
-            if codigo == 0:
-                for e in self.eventos:
-                    print('-=' * 20)
-                    for chave, valor in e.items():
-                        print(f'{chave} = {valor} ', end='')
-                        print()
+        janela_excluir = Tk()
+        janela_excluir.title('nome.evento')
+        janela_excluir.configure(bg=a)
+        janela_excluir.geometry('400x300+200+200')
+        texto_inicio = Label(janela_excluir, bg=a, text='- EXCLUINDO EVENTO -')
+        texto_inicio.place(x='130', y='20')
+        menu_nome = Label(janela_excluir, bg=a, text='*caso esqueça do código, digite 0 para voltar*')
+        menu_nome.place(x='50', y='50')
+        menu_nome = Label(janela_excluir, bg=a, text='código do evento: ')
+        menu_nome.place(x='50', y='70')
+        codigo = Entry(janela_excluir)
+        codigo.place(x='50', y='100')
 
-                print('-=' * 20)
-                input('\nenter para voltar')
+        def bt_click():
+            if int(codigo.get()) == 0:
+                janela_excluir.destroy()
+                pass
+
+            elif int(codigo.get()) > len(self.eventos) or int(codigo.get()) < 0:
+                print(showerror('erro', 'não existe esse cógigo no sistema'))
+                janela_excluir.destroy()
                 self.excluir_evento()
 
-            elif codigo > len(self.eventos) or codigo < 0:
-                print('\nnão existe esse código de evento no sistema.')
-                print('1 - tentar novamente \n2 - voltar ao agendamento ')
-                resposta = int(input('-> '))
-                if resposta == 1:
-                    self.excluir_evento()
-                elif resposta == 2:
-                    pass
-                else:
-                    raise ValueError()
-
-            elif self.eventos[codigo - 1] == ' ':
-                print('\nnão existe esse evento')
-                input('\nenter para voltar')
+            elif self.eventos[int(codigo.get()) - 1] == ' ':
+                print(showerror('inexistente', 'não existe esse evento'))
+                janela_excluir.destroy()
                 self.excluir_evento()
 
             else:
-                self.eventos.pop(codigo - 1)
-                self.eventos.insert(codigo - 1, ' ')
+                self.eventos.pop(int(codigo.get()) - 1)
+                self.eventos.insert(int(codigo.get()) - 1, ' ')
                 print(showinfo('evento removido', 'evento excluído com sucesso!'))
+                janela_excluir.destroy()
+                pass
 
-        except(TypeError, ValueError):
-            print('\033[0;49;94m\n*que? a não velho* \nvoltando...\033[m')
-            time.sleep(4)
-            self.excluir_evento()
+        botao = Button(janela_excluir, text = 'enviar', command = bt_click)
+        botao.place(x = '50', y = '130')

@@ -28,12 +28,10 @@ class Agendamento:
         texto_eventos.place(x='50', y='50')
         texto_agendamento = Label(janela_agendamento, bg=a, text='2 - ver agendamentos')
         texto_agendamento.place(x='50', y='70')
-        texto_agendamento = Label(janela_agendamento, bg=a, text='3 - ver banco de dados')
-        texto_agendamento.place(x='50', y='90')
-        texto_voltar = Label(janela_agendamento, bg=a, text='4 - voltar')
-        texto_voltar.place(x='50', y='110')
+        texto_voltar = Label(janela_agendamento, bg=a, text='3 - voltar')
+        texto_voltar.place(x='50', y='90')
         entrada_agendamento = Entry(janela_agendamento)
-        entrada_agendamento.place(x='50', y='140')
+        entrada_agendamento.place(x='50', y='120')
 
         def bt_click():
             if int(entrada_agendamento.get()) == 1:
@@ -46,16 +44,12 @@ class Agendamento:
                 self.menu_agendamento()
             elif int(entrada_agendamento.get()) == 3:
                 janela_agendamento.destroy()
-                banco()
-                self.menu_agendamento()
-            elif int(entrada_agendamento.get()) == 4:
-                janela_agendamento.destroy()
                 pass
             else:
                 print(showerror("erro", "digite uma das opções"))
 
         botao_enviar = Button(janela_agendamento, text='enviar', command=bt_click)
-        botao_enviar.place(x='50', y='170')
+        botao_enviar.place(x='50', y='150')
 
         janela_agendamento.mainloop()
 
@@ -68,14 +62,12 @@ class Agendamento:
         texto_inicio.place(x='150', y='20')
         texto_ae = Label(janela_eventos, bg=a, text='1 - adicionar evento')
         texto_ae.place(x='50', y='50')
-        texto_me = Label(janela_eventos, bg=a, text='2 - modificar evento')
+        texto_me = Label(janela_eventos, bg=a, text='2 - excluir evento')
         texto_me.place(x='50', y='70')
-        texto_ev = Label(janela_eventos, bg=a, text='3 - excluir evento')
+        texto_ev = Label(janela_eventos, bg=a, text='3 - voltar')
         texto_ev.place(x='50', y='90')
-        texto_voltar = Label(janela_eventos, bg=a, text='4 - voltar')
-        texto_voltar.place(x='50', y='110')
         entrada_eventos = Entry(janela_eventos)
-        entrada_eventos.place(x='50', y='140')
+        entrada_eventos.place(x='50', y='120')
 
         def bt_click():
             if int(entrada_eventos.get()) == 1:
@@ -83,11 +75,8 @@ class Agendamento:
                 self.__evento.agendar_evento()
             elif int(entrada_eventos.get()) == 2:
                 janela_eventos.destroy()
-                self.__evento.modificar_evento()
-            elif int(entrada_eventos.get()) == 3:
-                janela_eventos.destroy()
                 self.__evento.excluir_evento()
-            elif int(entrada_eventos.get()) == 4:
+            elif int(entrada_eventos.get()) == 3:
                 janela_eventos.destroy()
                 janela_agendamento.destroy()
                 pass
@@ -95,7 +84,7 @@ class Agendamento:
                 print(showerror("erro, digite uma das opções"))
 
         botao_enviar = Button(janela_eventos, text='enviar', command=bt_click)
-        botao_enviar.place(x='50', y='170')
+        botao_enviar.place(x='50', y='150')
 
         janela_eventos.mainloop()
 

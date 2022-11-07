@@ -114,7 +114,7 @@ def ler_bd():
 def excluir_dados():
     bancodedados()
     janela_excluir = Tk()
-    janela_excluir.title('excluir usuário')
+    janela_excluir.title('excluir.usuário')
     janela_excluir.config(bg=a)
     janela_excluir.geometry('400x300+200+200')
     texto_excluir = Label(janela_excluir, bg=a, text='- digite o id do usuário -')
@@ -156,8 +156,3 @@ def excluir_dados():
     botao_esquecer.place(x='50', y='180')
 
     janela_excluir.mainloop()
-
-
-
-
-
