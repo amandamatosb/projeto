@@ -43,6 +43,8 @@ class Evento:
         botao = Button(janela_evento, text='próximo', command=bt_click)
         botao.place(x='50', y='110')
 
+        janela_evento.mainloop()
+
     def lugar_evento(self):
         janela_lugar = Tk()
         janela_lugar.title('nome.evento')
@@ -66,6 +68,7 @@ class Evento:
         botao1 = Button(janela_lugar, text='salvar', command=bt_click1)
         botao1.place(x='50', y='110')
 
+        janela_lugar.mainloop()
 
     def excluir_evento(self):
         janela_excluir = Tk()
@@ -105,3 +108,4 @@ class Evento:
 
         botao = Button(janela_excluir, text = 'enviar', command = bt_click)
         botao.place(x = '50', y = '130')
+        janela_excluir.mainloop()
