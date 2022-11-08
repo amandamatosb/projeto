@@ -35,13 +35,9 @@ def comeco():
     def bt_click():
       try:
         if int(entrada.get()) == 1:
-          if len(usuarios) == 0:
-            print(showerror("sem cadastros", "não há sequer um cadastro no nosso sistema, faça um!"))
-
-          else:
-            janela.destroy()
-            usuario.fazer_login()
-            comeco()
+          janela.destroy()
+          usuario.fazer_login()
+          comeco()
 
         elif int(entrada.get()) == 2:
           janela.destroy()

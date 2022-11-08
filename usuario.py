@@ -7,6 +7,8 @@ import re
 from tkinter import *
 from banco_de_dados import *
 import sqlite3
+import tkinter.messagebox as tkMessageBox
+import tkinter.messagebox
 
 usuarios = []
 email = []
@@ -116,9 +118,12 @@ class Usuario:
         self.senha_login(email_digitado, janela_login, resposta_email)
 
       else:
-        print(showerror("email inexistente", 'email inexistente, tente novamente'))
-        janela_login.destroy()
-        self.fazer_login()
+        resultado = tkinter.messagebox.askquestion("email não existe", "você não tem cadastro, deseja se cadastrar? ", icon="warning")
+        if resultado == 'yes':
+          janela_login.destroy()
+        else:
+          janela_login.destroy()
+          self.fazer_login()
 
     botao = Button(janela_login, text='enviar', command=bt_click)
     botao.place(x='70', y='90')
