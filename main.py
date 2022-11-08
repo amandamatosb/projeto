@@ -52,7 +52,7 @@ def comeco():
       raise ValueError()
 
   except (TypeError, ValueError):
-    print('\033[0;49;94m\n*calma ae mano, tá querendo ir aonde??* \n voltando...\033[m')
+    print('\033[0;49;94m\n*digite uma das opções* \n voltando...\033[m')
     time.sleep(4)
     os.system('clear')
     comeco()
