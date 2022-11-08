@@ -19,15 +19,15 @@ def comeco():
     janela.geometry('400x300+200+200')
     texto_inicio = Label(janela, bg=a, text='PLANNER - INÍCIO')
     texto_inicio.place(x='150', y='20')
-    texto_login = Label(janela, bg=a, text='1 - login')
+    texto_login = Label(janela, bg=a, text='1 - Login')
     texto_login.place(x='50', y='50')
-    texto_cadastro = Label(janela, bg=a, text='2 - cadastro')
+    texto_cadastro = Label(janela, bg=a, text='2 - Cadastro')
     texto_cadastro.place(x='50', y='70')
-    texto_sistema = Label(janela, bg=a, text='3 - ver sobre o sistema')
+    texto_sistema = Label(janela, bg=a, text='3 - Ver sobre o Sistema')
     texto_sistema.place(x='50', y='90')
-    texto_bd = Label(janela, bg=a, text='4 - bd dos usuários')
+    texto_bd = Label(janela, bg=a, text='4 - BD dos Usuários')
     texto_bd.place(x='50', y='110')
-    texto_bd = Label(janela, bg=a, text='5 - bd dos eventos')
+    texto_bd = Label(janela, bg=a, text='5 - BD dos Eventos')
     texto_bd.place(x='50', y='130')
     entrada = Entry(janela)
     entrada.place(x='50', y='160')
@@ -72,7 +72,6 @@ def comeco():
           banco_eventos()
           comeco()
 
-
         else:
           raise ValueError()
 
@@ -87,6 +86,6 @@ def comeco():
     janela.mainloop()
 
   except (TypeError, ValueError):
-      print(showerror('erro', 'digite correto'))
+      print(showerror('erro', 'Digite correto'))
 
 comeco()

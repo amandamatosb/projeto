@@ -31,17 +31,17 @@ class Usuario:
     texto_inicio = Label(janela_cadastro, bg=a, text='- CADASTRO -')
     texto_inicio.place(x='150', y='20')
 
-    texto_nome = Label(janela_cadastro, bg=a, text='nome: ')
+    texto_nome = Label(janela_cadastro, bg=a, text='Nome: ')
     texto_nome.place(x='70', y='60')
     entrada = Entry(janela_cadastro)
     entrada.place(x='120', y='60')
 
-    texto_email = Label(janela_cadastro, bg=a, text='email: ')
+    texto_email = Label(janela_cadastro, bg=a, text='Email: ')
     texto_email.place(x='70', y='90')
     entrada1 = Entry(janela_cadastro)
     entrada1.place(x='120', y='90')
 
-    texto_senha = Label(janela_cadastro, bg=a, text='senha: ')
+    texto_senha = Label(janela_cadastro, bg=a, text='Senha: ')
     texto_senha.place(x='70', y='120')
     entrada2 = Entry(janela_cadastro)
     entrada2.place(x='120', y='120')
@@ -79,7 +79,7 @@ class Usuario:
       entrada2.destroy()
       botao.destroy()
 
-      resposta = Label(janela_cadastro, bg=a, text = 'cadastro realizado')
+      resposta = Label(janela_cadastro, bg=a, text='Cadastro Realizado')
       resposta.place(x = '60', y = '60')
 
       def bt_click1():
@@ -102,7 +102,7 @@ class Usuario:
     texto_inicio = Label(janela_login, bg=a, text='- LOGIN -')
     texto_inicio.place(x='160', y='20')
 
-    texto_email = Label(janela_login, bg=a, text='email: ')
+    texto_email = Label(janela_login, bg=a, text='Email: ')
     texto_email.place(x='70', y='60')
     entrada = Entry(janela_login)
     entrada.place(x='120', y='60')
@@ -110,7 +110,7 @@ class Usuario:
     def bt_click():
       email_digitado = entrada.get()
       if email_digitado in email:
-        resposta_email['text'] = ('email:', email_digitado)
+        resposta_email['text'] = ('Email:', email_digitado)
         texto_email.destroy()
         entrada.destroy()
         botao.destroy()
@@ -134,7 +134,7 @@ class Usuario:
     janela_login.mainloop()
 
   def senha_login(self, email_digitado, janela_login, resposta_email):
-    texto_senha = Label(janela_login, bg=a, text='senha: ')
+    texto_senha = Label(janela_login, bg=a, text='Senha: ')
     texto_senha.place(x='70', y='60')
     entrada = Entry(janela_login)
     entrada.place(x='120', y='60')
@@ -161,11 +161,11 @@ class Usuario:
     janela_escolher_funcoes.geometry('400x300+200+200')
     texto_inicio = Label(janela_escolher_funcoes, bg=a, text='PLANNER - BEM VINDO')
     texto_inicio.place(x='150', y='20')
-    texto_dados = Label(janela_escolher_funcoes, bg=a, text='1 - dados do usuário')
+    texto_dados = Label(janela_escolher_funcoes, bg=a, text='1 - Dados do Usuário')
     texto_dados.place(x='50', y='50')
-    texto_agenda = Label(janela_escolher_funcoes, bg=a, text='2 - agenda')
+    texto_agenda = Label(janela_escolher_funcoes, bg=a, text='2 - Agenda')
     texto_agenda.place(x='50', y='70')
-    texto_sair = Label(janela_escolher_funcoes, bg=a, text='3 - sair')
+    texto_sair = Label(janela_escolher_funcoes, bg=a, text='3 - Sair')
     texto_sair.place(x='50', y='90')
     entrada = Entry(janela_escolher_funcoes)
     entrada.place(x='50', y='120')
@@ -197,11 +197,11 @@ class Usuario:
     janela_exibir_dados.geometry('400x300+200+200')
     texto_inicio = Label(janela_exibir_dados, bg=a, text='DADOS DO USUÁRIO')
     texto_inicio.place(x='150', y='20')
-    texto_nome = Label(janela_exibir_dados, bg=a, text=('nome: ', usuarios[rsenha - 1]))
+    texto_nome = Label(janela_exibir_dados, bg=a, text=('Nome: ', usuarios[rsenha - 1]))
     texto_nome.place(x='50', y='50')
-    texto_email = Label(janela_exibir_dados, bg=a, text=('email: ', usuarios[rsenha]))
+    texto_email = Label(janela_exibir_dados, bg=a, text=('Email: ', usuarios[rsenha]))
     texto_email.place(x = '50', y = '70')
-    texto_senha = Label(janela_exibir_dados, bg=a, text=('senha: ', usuarios[rsenha + 1]))
+    texto_senha = Label(janela_exibir_dados, bg=a, text=('Senha: ', usuarios[rsenha + 1]))
     texto_senha.place(x='50', y='90')
 
     def bt_click():
