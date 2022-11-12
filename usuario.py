@@ -5,7 +5,7 @@ from tkinter.messagebox import *
 global eventos_usuarios
 import re
 from tkinter import *
-from banco_de_dados import *
+from banco_usuarios import *
 import sqlite3
 import tkinter.messagebox as tkMessageBox
 import tkinter.messagebox
@@ -26,25 +26,16 @@ class Usuario:
   def realizar_cadastro(self):
     janela_cadastro = Tk()
     janela_cadastro.title('planner.cadastro')
-    janela_cadastro.configure(bg=a)
-    janela_cadastro.geometry('400x300+200+200')
-    texto_inicio = Label(janela_cadastro, bg=a, text='- CADASTRO -')
-    texto_inicio.place(x='150', y='20')
-
-    texto_nome = Label(janela_cadastro, bg=a, text='Nome: ')
-    texto_nome.place(x='70', y='60')
+    janela_cadastro.geometry('700x394')
+    img = PhotoImage(file='imagens/cadastro.png')
+    labelimage_cadastro = Label(image=img)
+    labelimage_cadastro.pack(side=LEFT)
     entrada = Entry(janela_cadastro)
-    entrada.place(x='120', y='60')
-
-    texto_email = Label(janela_cadastro, bg=a, text='Email: ')
-    texto_email.place(x='70', y='90')
+    entrada.place(x='270', y='130', w = '159', h = '21')
     entrada1 = Entry(janela_cadastro)
-    entrada1.place(x='120', y='90')
-
-    texto_senha = Label(janela_cadastro, bg=a, text='Senha: ')
-    texto_senha.place(x='70', y='120')
-    entrada2 = Entry(janela_cadastro)
-    entrada2.place(x='120', y='120')
+    entrada1.place(x='270', y='189', w = '159', h = '21')
+    entrada2 = Entry(janela_cadastro, show = '*')
+    entrada2.place(x='270', y='250', w = '159', h = '21')
 
     def bt_click():
       self.__nome = entrada.get().title()
@@ -71,88 +62,75 @@ class Usuario:
       email.append(self.__email)
       usuarios.extend((self.__nome, self.__email, self.__senha))
 
-      texto_nome.destroy()
-      texto_email.destroy()
-      texto_senha.destroy()
-      entrada.destroy()
-      entrada1.destroy()
-      entrada2.destroy()
-      botao.destroy()
+      print(showinfo('cadastro realizado', 'cadastro realizado com sucesso'))
+      janela_cadastro.destroy()
 
-      resposta = Label(janela_cadastro, bg=a, text='Cadastro Realizado')
-      resposta.place(x = '60', y = '60')
-
-      def bt_click1():
-        cadastrar(self.__nome, self.__email)
-        janela_cadastro.destroy()
-        pass
-
-      botao1 = Button(janela_cadastro, text='voltar', command=bt_click1)
-      botao1.place(x='60', y='90')
-
-    botao = Button(janela_cadastro, text='enviar', command=bt_click)
-    botao.place(x='70', y='160')
+    img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
+    botao = Button(janela_cadastro, image=img_enviar, command=bt_click, borderwidth=0)
+    botao.place(x='312', y='321', w='72', h='25')
     janela_cadastro.mainloop()
 
   def fazer_login(self):
     janela_login = Tk()
     janela_login.title('planner.login')
-    janela_login.configure(bg=a)
-    janela_login.geometry('400x300+200+200')
-    texto_inicio = Label(janela_login, bg=a, text='- LOGIN -')
-    texto_inicio.place(x='160', y='20')
-
-    texto_email = Label(janela_login, bg=a, text='Email: ')
-    texto_email.place(x='70', y='60')
+    janela_login.geometry('700x394')
+    img = PhotoImage(file='imagens/login.png')
+    labelimage_login = Label(image=img)
+    labelimage_login.pack(side=LEFT)
     entrada = Entry(janela_login)
-    entrada.place(x='120', y='60')
+    entrada.place(x='270', y='175', w = '159', h = '21')
 
     def bt_click():
       email_digitado = entrada.get()
       if email_digitado in email:
-        resposta_email['text'] = ('Email:', email_digitado)
-        texto_email.destroy()
-        entrada.destroy()
-        botao.destroy()
-        resposta_email.destroy()
-        self.senha_login(email_digitado, janela_login, resposta_email)
+        janela_login.destroy()
+        self.senha_login(email_digitado)
 
       else:
         resultado = tkinter.messagebox.askquestion("email não existe", "você não tem cadastro, deseja se cadastrar? ", icon="warning")
         if resultado == 'yes':
           janela_login.destroy()
         else:
-          janela_login.destroy()
           self.fazer_login()
 
-    botao = Button(janela_login, text='enviar', command=bt_click)
-    botao.place(x='70', y='90')
-
-    resposta_email = Label(janela_login, bg=a, text='')
-    resposta_email.place(x='60', y='60')
+    img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
+    botao = Button(janela_login, image=img_enviar, command=bt_click, borderwidth=0)
+    botao.place(x='309', y='311', w='72', h='25')
 
     janela_login.mainloop()
 
-  def senha_login(self, email_digitado, janela_login, resposta_email):
-    texto_senha = Label(janela_login, bg=a, text='Senha: ')
-    texto_senha.place(x='70', y='60')
-    entrada = Entry(janela_login)
-    entrada.place(x='120', y='60')
+  def senha_login(self, email_digitado):
+    janela_loginsenha = Tk()
+    janela_loginsenha.title('planner.login')
+    janela_loginsenha.geometry('700x394')
+    img = PhotoImage(file='imagens/login_senha.png')
+    labelimage_login = Label(image=img)
+    labelimage_login.pack(side=LEFT)
+    entrada = Entry(janela_loginsenha, show= '*')
+    entrada.place(x='270', y='175', w='159', h='21')
 
     def bt_click():
       senha_digitada = entrada.get()
       if senha_digitada != usuarios[rsenha + 1]:
-        print(showerror("senha errada", 'senha errada, tente novamente'))
-        self.senha_login(email_digitado, janela_login, resposta_email)
+        resultado = tkinter.messagebox.askquestion("senha errada", "você deseja tentar novamente? ",
+                                                   icon="warning")
+        if resultado == 'yes':
+          janela_loginsenha.destroy()
+          self.senha_login(email_digitado)
+        else:
+          janela_loginsenha.destroy()
 
       else:
-        janela_login.destroy()
+        janela_loginsenha.destroy()
         self.escolher_funcoes(email_digitado, rsenha)
 
-    botao = Button(janela_login, text='enviar', command=bt_click)
-    botao.place(x='70', y='90')
+    img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
+    botao = Button(janela_loginsenha, image=img_enviar, command=bt_click, borderwidth=0)
+    botao.place(x='309', y='311', w='72', h='25')
 
     rsenha = usuarios.index(email_digitado)
+
+    janela_loginsenha.mainloop()
 
   def escolher_funcoes(self, email_digitado, rsenha):
     janela_escolher_funcoes = Tk()

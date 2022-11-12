@@ -4,88 +4,126 @@ import os
 from usuario import usuarios
 from tkinter import *
 from tkinter.messagebox import *
-from banco_de_dados import *
+from banco_usuarios import *
 from banco_eventos import *
 
 usuario = Usuario()
 
-a = '#BCD2EE'
 
 def comeco():
-  try:
-    janela = Tk()
-    janela.title('planner')
-    janela.configure(bg=a)
-    janela.geometry('400x300+200+200')
-    texto_inicio = Label(janela, bg=a, text='PLANNER - INÍCIO')
-    texto_inicio.place(x='150', y='20')
-    texto_login = Label(janela, bg=a, text='1 - Login')
-    texto_login.place(x='50', y='50')
-    texto_cadastro = Label(janela, bg=a, text='2 - Cadastro')
-    texto_cadastro.place(x='50', y='70')
-    texto_sistema = Label(janela, bg=a, text='3 - Ver sobre o Sistema')
-    texto_sistema.place(x='50', y='90')
-    texto_bd = Label(janela, bg=a, text='4 - BD dos Usuários')
-    texto_bd.place(x='50', y='110')
-    texto_bd = Label(janela, bg=a, text='5 - BD dos Eventos')
-    texto_bd.place(x='50', y='130')
-    entrada = Entry(janela)
-    entrada.place(x='50', y='160')
+  janela = Tk()
+  janela.title('planner')
+  janela.geometry('700x394')
+  img = PhotoImage(file='imagens/menuinicial.png')
+  labelimage_inicio = Label(image=img)
+  labelimage_inicio.pack(side= LEFT)
+  entrada = Entry(janela)
+  entrada.place(x='58', y='197')
 
-    def bt_click():
-      try:
-        if int(entrada.get()) == 1:
-          janela.destroy()
-          usuario.fazer_login()
-          comeco()
+  def ver_sistema():
+    janela.destroy()
+    janela_sistema = Tk()
+    janela_sistema.title('banco.de.dados')
+    janela_sistema.geometry('700x394')
+    img_sistema = PhotoImage(file='imagens/sistema.png')
+    labelimage_bd = Label(image=img_sistema)
+    labelimage_bd.pack(side=LEFT)
+    file = open('planner.txt', 'w+')
+    file.write('INTEGRANTES DO PROJETO: ')
+    file.write('\nAmanda Barros Matos')
+    file.write('\nAna Beatriz Pimenta Coelho')
+    file.write('\nLivia Gabriele Campos Lima')
+    file.write('\nLarissa Cristina Nunes Guarates')
+    file.write('\n\nNós somos do grupo Áries+Libra+Sagitário ')
+    file.write('\n\nMatérias:')
+    file.write('\nProgramação Orientada a Objetos')
+    file.write('\nLinguagem de Programação')
+    file.write('\nFundamentos e Análises de Sistema')
+    file.write('\nBanco de Dados')
+    file.seek(0, 0)
+    file.seek(0, 0)
+    file.close()
 
-        elif int(entrada.get()) == 2:
-          janela.destroy()
-          usuario.realizar_cadastro()
-          comeco()
+    def voltar():
+      janela_sistema.destroy()
+      comeco()
 
-        elif int(entrada.get()) == 3:
-          file = open('planner.txt', 'w+')
-          file.write('INTEGRANTES DO PROJETO: ')
-          file.write('\nAmanda Barros Matos')
-          file.write('\nAna Beatriz Pimenta Coelho')
-          file.write('\nLivia Gabriele Campos Lima')
-          file.write('\nLarissa Cristina Nunes Guarates')
-          file.write('\n\nNós somos do grupo Áries+Libra+Sagitário ')
-          file.write('\n\nMatérias:')
-          file.write('\nProgramação Orientada a Objetos')
-          file.write('\nLinguagem de Programação')
-          file.write('\nFundamentos e Análises de Sistema')
-          file.write('\nBanco de Dados')
-          file.seek(0, 0)
-          file.seek(0, 0)
-          file.close()
-          resposta_botao['text'] = ('(abra o arquivo de texto)')
+    img_voltar = PhotoImage(file='imagens/botao_voltar.png')
+    botao_voltar = Button(janela_sistema, image=img_voltar, command=voltar, borderwidth=0)
+    botao_voltar.place(x='592', y='334', w='72', h='25')
 
-        elif int(entrada.get()) == 4:
-          janela.destroy()
-          banco()
-          comeco()
+    janela_sistema.mainloop()
 
-        elif int(entrada.get()) == 5:
-          janela.destroy()
-          banco_eventos()
-          comeco()
+  img_sis = PhotoImage(file='imagens/botao_sistema.png')
+  botao_sistema = Button(janela, image=img_sis, command=ver_sistema, borderwidth=0)
+  botao_sistema.place(x='476', y='40', w='189', h='25')
 
-        else:
-          raise ValueError()
+  def banco_de_dados():
+    janela.destroy()
+    banco()
 
-      except (TypeError, ValueError):
-        resposta_botao['text'] = ('*digite correto*')
+  def banco():
+    janela_banco = Tk()
+    janela_banco.title('banco.de.dados')
+    janela_banco.geometry('700x394')
+    img_bd = PhotoImage(file='imagens/bancodedados.png')
+    labelimage_bd = Label(image=img_bd)
+    labelimage_bd.pack(side=LEFT)
+    entrada = Entry(janela_banco)
+    entrada.place(x='58', y='197')
 
-    botao = Button(janela, text='enviar', command=bt_click)
-    botao.place(x='50', y='190')
+    def enviar():
+      if int(entrada.get()) == 1:
+        janela_banco.destroy()
+        banco_usuarios()
+        banco()
 
-    resposta_botao = Label(janela, bg=a, text='')
-    resposta_botao.place(x='50', y='220')
-    janela.mainloop()
+      elif int(entrada.get()) == 2:
+        janela_banco.destroy()
+        banco_eventos()
+        banco()
 
-  except (TypeError, ValueError):
-      print(showerror('erro', 'Digite correto'))
+    img_enviar = PhotoImage(file='imagens/botao_enviar.png')
+    botao = Button(janela_banco, image=img_enviar, command=enviar, borderwidth=0)
+    botao.place(x='58', y='257', w='72', h='25')
+
+    def voltar():
+      janela_banco.destroy()
+      comeco()
+
+    img_voltar = PhotoImage(file='imagens/botao_voltar.png')
+    botao_voltar = Button(janela_banco, image=img_voltar, command = voltar, borderwidth=0)
+    botao_voltar.place(x='592', y='334', w='72', h='25')
+
+    janela_banco.mainloop()
+
+  img_bd = PhotoImage(file='imagens/botao_bd.png')
+  botao_bd = Button(janela, image=img_bd, command=banco_de_dados, borderwidth=0)
+  botao_bd.place(x='480', y='334', w='178', h='25')
+
+  def bt_click():
+    try:
+      if int(entrada.get()) == 1:
+        janela.destroy()
+        usuario.fazer_login()
+        comeco()
+
+      elif int(entrada.get()) == 2:
+        janela.destroy()
+        usuario.realizar_cadastro()
+        comeco()
+
+      else:
+        raise ValueError()
+
+
+    except (TypeError, ValueError):
+      print(showerror('erro', 'digite correto'))
+
+  img_enviar = PhotoImage(file='imagens/botao_enviar.png')
+  botao = Button(janela, image = img_enviar, command=bt_click, borderwidth=0)
+  botao.place(x='58', y='257', w='72', h='25')
+
+  janela.mainloop()
 
 comeco()
