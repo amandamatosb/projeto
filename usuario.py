@@ -46,6 +46,11 @@ class Usuario:
           janela_cadastro.destroy()
           self.realizar_cadastro()
 
+        elif self.__email in email:
+          print(showinfo("email existente", "já existe esse email no sistema"))
+          janela_cadastro.destroy()
+          self.realizar_cadastro()
+
         else:
           break
 
@@ -61,13 +66,14 @@ class Usuario:
 
       email.append(self.__email)
       usuarios.extend((self.__nome, self.__email, self.__senha))
+      cadastrar(self.__nome, self.__email)
 
       print(showinfo('cadastro realizado', 'cadastro realizado com sucesso'))
       janela_cadastro.destroy()
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_cadastro, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='312', y='321', w='72', h='25')
+    botao.place(x='312', y='321', w='72', h='33')
     janela_cadastro.mainloop()
 
   def fazer_login(self):
@@ -91,11 +97,12 @@ class Usuario:
         if resultado == 'yes':
           janela_login.destroy()
         else:
+          janela_login.destroy()
           self.fazer_login()
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_login, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='25')
+    botao.place(x='309', y='311', w='72', h='33')
 
     janela_login.mainloop()
 
@@ -121,12 +128,13 @@ class Usuario:
           janela_loginsenha.destroy()
 
       else:
+        print(showinfo("login feito", "BEM VINDO AO PLANNER"))
         janela_loginsenha.destroy()
         self.escolher_funcoes(email_digitado, rsenha)
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_loginsenha, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='25')
+    botao.place(x='309', y='311', w='72', h='33')
 
     rsenha = usuarios.index(email_digitado)
 
@@ -135,20 +143,14 @@ class Usuario:
   def escolher_funcoes(self, email_digitado, rsenha):
     janela_escolher_funcoes = Tk()
     janela_escolher_funcoes.title('planner.escolha')
-    janela_escolher_funcoes.configure(bg=a)
-    janela_escolher_funcoes.geometry('400x300+200+200')
-    texto_inicio = Label(janela_escolher_funcoes, bg=a, text='PLANNER - BEM VINDO')
-    texto_inicio.place(x='150', y='20')
-    texto_dados = Label(janela_escolher_funcoes, bg=a, text='1 - Dados do Usuário')
-    texto_dados.place(x='50', y='50')
-    texto_agenda = Label(janela_escolher_funcoes, bg=a, text='2 - Agenda')
-    texto_agenda.place(x='50', y='70')
-    texto_sair = Label(janela_escolher_funcoes, bg=a, text='3 - Sair')
-    texto_sair.place(x='50', y='90')
+    janela_escolher_funcoes.geometry('700x394')
+    img = PhotoImage(file='imagens/planner.png')
+    labelimage_inicio = Label(image=img)
+    labelimage_inicio.pack(side=LEFT)
     entrada = Entry(janela_escolher_funcoes)
-    entrada.place(x='50', y='120')
+    entrada.place(x='58', y='197')
 
-    def bt_click():
+    def enviar():
       if int(entrada.get()) == 1:
         janela_escolher_funcoes.destroy()
         self.exibir_dados(email_digitado, rsenha)
@@ -157,36 +159,45 @@ class Usuario:
         janela_escolher_funcoes.destroy()
         self.consultar_agendamento(email_digitado)
         self.escolher_funcoes(email_digitado, rsenha)
-      elif int(entrada.get()) == 3:
-        janela_escolher_funcoes.destroy()
       else:
         print(showerror("erro", 'eita mano deu erro aqui'))
         janela_escolher_funcoes.destroy()
         self.escolher_funcoes(email_digitado, rsenha)
 
-    botao = Button(janela_escolher_funcoes, text='enviar', command=bt_click)
-    botao.place(x='50', y='150')
+    img_enviar = PhotoImage(file='imagens/botao_enviar.png')
+    botao = Button(janela_escolher_funcoes, image=img_enviar, command=enviar, borderwidth=0)
+    botao.place(x='58', y='257', w='72', h='33')
+
+    def voltar():
+      janela_escolher_funcoes.destroy()
+
+    img_voltar = PhotoImage(file='imagens/botao_voltar.png')
+    botao_voltar = Button(janela_escolher_funcoes, image=img_voltar, command = voltar, borderwidth=0)
+    botao_voltar.place(x='592', y='334', w='72', h='33')
+
     janela_escolher_funcoes.mainloop()
 
   def exibir_dados(self, email_digitado, rsenha):
     janela_exibir_dados = Tk()
-    janela_exibir_dados.title('planner.dados.do.usuario')
-    janela_exibir_dados.configure(bg = a)
-    janela_exibir_dados.geometry('400x300+200+200')
-    texto_inicio = Label(janela_exibir_dados, bg=a, text='DADOS DO USUÁRIO')
-    texto_inicio.place(x='150', y='20')
-    texto_nome = Label(janela_exibir_dados, bg=a, text=('Nome: ', usuarios[rsenha - 1]))
-    texto_nome.place(x='50', y='50')
-    texto_email = Label(janela_exibir_dados, bg=a, text=('Email: ', usuarios[rsenha]))
-    texto_email.place(x = '50', y = '70')
-    texto_senha = Label(janela_exibir_dados, bg=a, text=('Senha: ', usuarios[rsenha + 1]))
-    texto_senha.place(x='50', y='90')
+    janela_exibir_dados.title('dados.do.usuario')
+    janela_exibir_dados.geometry('700x394')
+    img = PhotoImage(file='imagens/dados_usuario.png')
+    labelimage_dados = Label(image=img)
+    labelimage_dados.pack(side=LEFT)
+    texto_nome = Label(janela_exibir_dados, bg ='#FBF8F0', text=(usuarios[rsenha - 1]))
+    texto_nome.place(x='255', y='146')
+    texto_email = Label(janela_exibir_dados, bg ='#FBF8F0',text=(usuarios[rsenha]))
+    texto_email.place(x = '255', y = '186')
+    texto_senha = Label(janela_exibir_dados, bg ='#FBF8F0', text=(usuarios[rsenha + 1]))
+    texto_senha.place(x='255', y='226')
 
     def bt_click():
       janela_exibir_dados.destroy()
 
-    botao = Button(janela_exibir_dados, text='voltar', command=bt_click)
-    botao.place(x='50', y='130')
+    img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
+    botao = Button(janela_exibir_dados, image=img_voltar, command=bt_click, borderwidth=0)
+    botao.place(x='309', y='311', w='72', h='33')
+
     janela_exibir_dados.mainloop()
 
   def consultar_agendamento(self, email_digitado):

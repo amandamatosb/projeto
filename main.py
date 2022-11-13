@@ -50,13 +50,13 @@ def comeco():
 
     img_voltar = PhotoImage(file='imagens/botao_voltar.png')
     botao_voltar = Button(janela_sistema, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='592', y='334', w='72', h='25')
+    botao_voltar.place(x='592', y='334', w='72',  h='33')
 
     janela_sistema.mainloop()
 
   img_sis = PhotoImage(file='imagens/botao_sistema.png')
   botao_sistema = Button(janela, image=img_sis, command=ver_sistema, borderwidth=0)
-  botao_sistema.place(x='476', y='40', w='189', h='25')
+  botao_sistema.place(x='476', y='40', w='189', h='33')
 
   def banco_de_dados():
     janela.destroy()
@@ -85,7 +85,7 @@ def comeco():
 
     img_enviar = PhotoImage(file='imagens/botao_enviar.png')
     botao = Button(janela_banco, image=img_enviar, command=enviar, borderwidth=0)
-    botao.place(x='58', y='257', w='72', h='25')
+    botao.place(x='58', y='257', w='72', h='33')
 
     def voltar():
       janela_banco.destroy()
@@ -93,13 +93,13 @@ def comeco():
 
     img_voltar = PhotoImage(file='imagens/botao_voltar.png')
     botao_voltar = Button(janela_banco, image=img_voltar, command = voltar, borderwidth=0)
-    botao_voltar.place(x='592', y='334', w='72', h='25')
+    botao_voltar.place(x='592', y='334', w='72',  h='33')
 
     janela_banco.mainloop()
 
   img_bd = PhotoImage(file='imagens/botao_bd.png')
   botao_bd = Button(janela, image=img_bd, command=banco_de_dados, borderwidth=0)
-  botao_bd.place(x='480', y='334', w='178', h='25')
+  botao_bd.place(x='480', y='334', w='178',  h='33')
 
   def bt_click():
     try:
@@ -122,7 +122,7 @@ def comeco():
 
   img_enviar = PhotoImage(file='imagens/botao_enviar.png')
   botao = Button(janela, image = img_enviar, command=bt_click, borderwidth=0)
-  botao.place(x='58', y='257', w='72', h='25')
+  botao.place(x='58', y='257', w='72', h='33')
 
   janela.mainloop()
 

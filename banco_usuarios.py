@@ -9,7 +9,7 @@ a = '#BCD2EE'
 
 def banco_usuarios():
   janela_bd = Tk()
-  janela_bd.title('bd.eventos')
+  janela_bd.title('bd.usuarios')
   janela_bd.geometry('700x394')
   img = PhotoImage(file='imagens/banco_usuarios.png')
   labelimage_inicio = Label(image=img)
@@ -19,6 +19,7 @@ def banco_usuarios():
 
   def bt_click():
     if int(entrada_bd.get()) == 1:
+      janela_bd.destroy()
       ler_bd()
 
     elif int(entrada_bd.get()) == 2:
@@ -30,15 +31,14 @@ def banco_usuarios():
 
   img_enviar = PhotoImage(file='imagens/botao_enviar2.png')
   botao_bd = Button(janela_bd, image=img_enviar, command=bt_click, borderwidth=0)
-  botao_bd.place(x='58', y='257', w='72', h='25')
+  botao_bd.place(x='58', y='257', w='72', h='33')
 
   def voltar():
     janela_bd.destroy()
-    janela_visao.destroy()
 
   img_voltar = PhotoImage(file='imagens/botao_voltar1.png')
   botao_voltar = Button(janela_bd, image=img_voltar, command=voltar, borderwidth=0)
-  botao_voltar.place(x='562', y='334', w='72', h='25')
+  botao_voltar.place(x='562', y='334', w='72', h='33')
 
   janela_bd.mainloop()
 
@@ -72,8 +72,17 @@ def cadastrar(nome, email):
 def ler_bd():
   global janela_visao
   janela_visao = Tk()
-  janela_visao.title('cadastros.dos.usuarios')
+  janela_visao.title('banco.dos.usuarios')
   janela_visao.geometry('700x394')
+  janela_visao.configure(bg = '#FBF8F0')
+
+  def voltar():
+    janela_visao.destroy()
+    banco_usuarios()
+
+  img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
+  botao_voltar = Button(janela_visao, image=img_voltar, command=voltar, borderwidth=0)
+  botao_voltar.place(x='30', y='30', w='72', h='33')
 
   scrollbary = Scrollbar(janela_visao, orient=VERTICAL)
   scrollbarx = Scrollbar(janela_visao, orient=HORIZONTAL)
@@ -103,6 +112,8 @@ def ler_bd():
 
   cursor.close()
   conexao.close()
+
+  janela_visao.mainloop()
 
 def excluir_dados():
   bancodedados()
@@ -142,10 +153,10 @@ def excluir_dados():
 
   img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
   botao = Button(janela_excluir, image=img_enviar, command=bt_click, borderwidth=0)
-  botao.place(x='309', y='311', w='72', h='25')
+  botao.place(x='309', y='311', w='72', h='33')
 
   img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
   botao_voltar = Button(janela_excluir, image=img_voltar, command=voltar, borderwidth=0)
-  botao_voltar.place(x='570', y='14', w='72', h='25')
+  botao_voltar.place(x='570', y='14', w='72', h='33')
 
   janela_excluir.mainloop()

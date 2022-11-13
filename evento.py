@@ -9,102 +9,100 @@ v = '#B22222'
 
 
 class Evento:
-  def __init__(self):
-    self.__cod_evento = 0
-    self.__nome_evento = ''
-    self.__data_evento = Calendario()
-    self.__local_evento = ''
-    self.eventos = []
+    def __init__(self):
+        self.__cod_evento = 0
+        self.__nome_evento = ''
+        self.__data_evento = Calendario()
+        self.__local_evento = ''
+        self.eventos = []
 
-  def agendar_evento(self):
-    self.__cod_evento += 1
-    evento['código'] = self.__cod_evento
+    def agendar_evento(self):
+        self.__cod_evento += 1
+        evento['código'] = self.__cod_evento
 
-    janela_evento = Tk()
-    janela_evento.title('nome.evento')
-    janela_evento.configure(bg=a)
-    janela_evento.geometry('400x300+200+200')
-    texto_inicio = Label(janela_evento, bg=a, text='- AGENDANDO EVENTO -')
-    texto_inicio.place(x='130', y='20')
-    menu_nome = Label(janela_evento, bg=a, text='Nome: ')
-    menu_nome.place(x='50', y='50')
-    entrada = Entry(janela_evento)
-    entrada.place(x='50', y='80')
+        janela_evento = Tk()
+        janela_evento.title('nome.evento')
+        janela_evento.geometry('700x394')
+        img = PhotoImage(file='imagens/add_nome.png')
+        labelimage_inicio = Label(image=img)
+        labelimage_inicio.pack(side=LEFT)
+        entrada = Entry(janela_evento)
+        entrada.place(x='270', y='175', w = '159', h = '21')
 
-    def bt_click():
-      evento['nome'] = entrada.get().title()
-      janela_evento.destroy()
-      evento['data'] = self.__data_evento.definir_data()
-      self.lugar_evento()
+        def bt_click():
+            evento['nome'] = entrada.get().title()
+            janela_evento.destroy()
+            evento['data'] = self.__data_evento.definir_data()
+            self.lugar_evento()
 
-    botao = Button(janela_evento, text='próximo', command=bt_click)
-    botao.place(x='50', y='110')
+        img_proximo = PhotoImage(file='imagens/proximo.png')
+        botao = Button(janela_evento, image=img_proximo, command=bt_click, borderwidth=0)
+        botao.place(x='309', y='311', w='85', h='33')
 
-    janela_evento.mainloop()
+        janela_evento.mainloop()
 
-  def lugar_evento(self):
-    janela_lugar = Tk()
-    janela_lugar.title('nome.evento')
-    janela_lugar.configure(bg=a)
-    janela_lugar.geometry('400x300+200+200')
-    texto_inicio = Label(janela_lugar, bg=a, text='- AGENDANDO EVENTO -')
-    texto_inicio.place(x='130', y='20')
-    menu_lugar = Label(janela_lugar, bg=a, text='Local: ')
-    menu_lugar.place(x='50', y='50')
-    entrada1 = Entry(janela_lugar)
-    entrada1.place(x='50', y='80')
+    def lugar_evento(self):
+        janela_lugar = Tk()
+        janela_lugar.title('lugar.evento')
+        janela_lugar.geometry('700x394')
+        img = PhotoImage(file='imagens/add_local.png')
+        labelimage_inicio = Label(image=img)
+        labelimage_inicio.pack(side=LEFT)
+        entrada = Entry(janela_lugar)
+        entrada.place(x='270', y='175', w='159', h='21')
 
-    def bt_click1():
-      evento['local'] = entrada1.get().title()
-      self.eventos.append((evento['código'], evento['nome'], evento['data'], evento['local']))
-      cadastrar(evento['nome'], evento['data'], evento['local'])
-      print(showinfo('evento marcado', 'evento marcado com sucesso!'))
-      janela_lugar.destroy()
-      pass
+        def bt_click():
+            evento['local'] = entrada.get().title()
+            self.eventos.append((evento['código'], evento['nome'], evento['data'], evento['local']))
+            cadastrar(evento['nome'], evento['data'], evento['local'])
+            print(showinfo('evento marcado', 'evento marcado com sucesso!'))
+            janela_lugar.destroy()
+            pass
 
-    botao1 = Button(janela_lugar, text='salvar', command=bt_click1)
-    botao1.place(x='50', y='110')
+        img_salvar = PhotoImage(file='imagens/salvar.png')
+        botao = Button(janela_lugar, image=img_salvar, command=bt_click, borderwidth=0)
+        botao.place(x='309', y='311', w='72', h='33')
 
-    janela_lugar.mainloop()
+        janela_lugar.mainloop()
 
-  def excluir_evento(self):
-    janela_excluir = Tk()
-    janela_excluir.title('nome.evento')
-    janela_excluir.configure(bg=a)
-    janela_excluir.geometry('400x300+200+200')
-    texto_inicio = Label(janela_excluir, bg=a, text='- EXCLUINDO EVENTO -')
-    texto_inicio.place(x='130', y='20')
-    menu_nome = Label(janela_excluir, bg=a, text='*caso esqueça do código, digite 0 para voltar*')
-    menu_nome.place(x='50', y='50')
-    menu_nome = Label(janela_excluir, bg=a, text='Código do Evento: ')
-    menu_nome.place(x='50', y='70')
-    codigo = Entry(janela_excluir)
-    codigo.place(x='50', y='100')
+    def excluir_evento(self):
+        janela_excluir = Tk()
+        janela_excluir.title('excluir.evento')
+        janela_excluir.geometry('700x394')
+        img = PhotoImage(file='imagens/excluir_evento.png')
+        labelimage_inicio = Label(image=img)
+        labelimage_inicio.pack(side=LEFT)
+        codigo = Entry(janela_excluir)
+        codigo.place(x='270', y='175', w='159', h='21')
 
-    def bt_click():
-      if int(codigo.get()) == 0:
-        janela_excluir.destroy()
-        pass
+        def bt_click():
+            if int(codigo.get()) > len(self.eventos) or int(codigo.get()) <= 0:
+                print(showerror('erro', 'não existe esse cógigo no sistema'))
+                janela_excluir.destroy()
+                self.excluir_evento()
 
-      elif int(codigo.get()) > len(self.eventos) or int(codigo.get()) < 0:
-        print(showerror('erro', 'não existe esse cógigo no sistema'))
-        janela_excluir.destroy()
-        self.excluir_evento()
+            elif self.eventos[int(codigo.get()) - 1] == ' ':
+                print(showerror('inexistente', 'não existe esse evento'))
+                janela_excluir.destroy()
+                self.excluir_evento()
 
-      elif self.eventos[int(codigo.get()) - 1] == ' ':
-        print(showerror('inexistente', 'não existe esse evento'))
-        janela_excluir.destroy()
-        self.excluir_evento()
+            else:
+                self.eventos.pop(int(codigo.get()) - 1)
+                self.eventos.insert(int(codigo.get()) - 1, ' ')
+                print(showinfo('evento removido', 'evento excluído com sucesso!'))
+                janela_excluir.destroy()
+                pass
 
-      else:
-        self.eventos.pop(int(codigo.get()) - 1)
-        self.eventos.insert(int(codigo.get()) - 1, ' ')
-        print(showinfo('evento removido', 'evento excluído com sucesso!'))
-        janela_excluir.destroy()
-        pass
+        def voltar():
+            janela_excluir.destroy()
 
-    botao = Button(janela_excluir, text='enviar', command=bt_click)
-    botao.place(x='50', y='130')
-    janela_excluir.mainloop()
+        img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
+        botao = Button(janela_excluir, image=img_enviar, command=bt_click, borderwidth=0)
+        botao.place(x='309', y='311', w='72', h='33')
 
-        
+        img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
+        botao_voltar = Button(janela_excluir, image=img_voltar, command=voltar, borderwidth=0)
+        botao_voltar.place(x='570', y='14', w='72', h='33')
+
+        janela_excluir.mainloop()
+

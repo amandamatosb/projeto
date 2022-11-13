@@ -15,18 +15,12 @@ class Agendamento:
   def menu_agendamento(self):
     janela_agendamento = Tk()
     janela_agendamento.title('menu.agendamento')
-    janela_agendamento.configure(bg=a)
-    janela_agendamento.geometry('400x300+200+200')
-    texto_ag = Label(janela_agendamento, bg=a, text='PLANNER - AGENDAMENTO')
-    texto_ag.place(x='130', y='20')
-    texto_eventos = Label(janela_agendamento, bg=a, text='1 - Eventos')
-    texto_eventos.place(x='50', y='50')
-    texto_agendamento = Label(janela_agendamento, bg=a, text='2 - Ver agendamentos')
-    texto_agendamento.place(x='50', y='70')
-    texto_voltar = Label(janela_agendamento, bg=a, text='3 - Voltar')
-    texto_voltar.place(x='50', y='90')
+    janela_agendamento.geometry('700x394')
+    img = PhotoImage(file='imagens/agendamento.png')
+    labelimage_inicio = Label(image=img)
+    labelimage_inicio.pack(side=LEFT)
     entrada_agendamento = Entry(janela_agendamento)
-    entrada_agendamento.place(x='50', y='120')
+    entrada_agendamento.place(x='58', y='197')
 
     def bt_click():
       if int(entrada_agendamento.get()) == 1:
@@ -37,32 +31,31 @@ class Agendamento:
         janela_agendamento.destroy()
         self.exibir_eventos()
         self.menu_agendamento()
-      elif int(entrada_agendamento.get()) == 3:
-        janela_agendamento.destroy()
-        pass
       else:
         print(showerror("erro", "digite uma das opções"))
 
-    botao_enviar = Button(janela_agendamento, text='enviar', command=bt_click)
-    botao_enviar.place(x='50', y='150')
+    img_enviar = PhotoImage(file='imagens/botao_enviar2.png')
+    botao_bd = Button(janela_agendamento, image=img_enviar, command=bt_click, borderwidth=0)
+    botao_bd.place(x='58', y='257', w='72',  h='33')
+
+    def voltar():
+      janela_agendamento.destroy()
+
+    img_voltar = PhotoImage(file='imagens/botao_voltar1.png')
+    botao_voltar = Button(janela_agendamento, image=img_voltar, command=voltar, borderwidth=0)
+    botao_voltar.place(x='562', y='334', w='72', h='33')
 
     janela_agendamento.mainloop()
 
   def eventos(self):
     janela_eventos = Tk()
     janela_eventos.title('menu.eventos')
-    janela_eventos.configure(bg=a)
-    janela_eventos.geometry('400x300+200+200')
-    texto_inicio = Label(janela_eventos, bg=a, text='PLANNER - EVENTOS')
-    texto_inicio.place(x='150', y='20')
-    texto_ae = Label(janela_eventos, bg=a, text='1 - Adicionar Evento')
-    texto_ae.place(x='50', y='50')
-    texto_me = Label(janela_eventos, bg=a, text='2 - Excluir Evento')
-    texto_me.place(x='50', y='70')
-    texto_ev = Label(janela_eventos, bg=a, text='3 - Voltar')
-    texto_ev.place(x='50', y='90')
+    janela_eventos.geometry('700x394')
+    img = PhotoImage(file='imagens/eventos.png')
+    labelimage_inicio = Label(image=img)
+    labelimage_inicio.pack(side=LEFT)
     entrada_eventos = Entry(janela_eventos)
-    entrada_eventos.place(x='50', y='120')
+    entrada_eventos.place(x='58', y='197')
 
     def bt_click():
       if int(entrada_eventos.get()) == 1:
@@ -71,14 +64,19 @@ class Agendamento:
       elif int(entrada_eventos.get()) == 2:
         janela_eventos.destroy()
         self.__evento.excluir_evento()
-      elif int(entrada_eventos.get()) == 3:
-        janela_eventos.destroy()
-        pass
       else:
         print(showerror("erro", 'digite uma das opções'))
 
-    botao_enviar = Button(janela_eventos, text='enviar', command=bt_click)
-    botao_enviar.place(x='50', y='150')
+    img_enviar = PhotoImage(file='imagens/botao_enviar2.png')
+    botao_bd = Button(janela_eventos, image=img_enviar, command=bt_click, borderwidth=0)
+    botao_bd.place(x='58', y='257', w='72', h='33')
+
+    def voltar():
+      janela_eventos.destroy()
+
+    img_voltar = PhotoImage(file='imagens/botao_voltar1.png')
+    botao_voltar = Button(janela_eventos, image=img_voltar, command=voltar, borderwidth=0)
+    botao_voltar.place(x='562', y='334', w='72', h='33' )
 
     janela_eventos.mainloop()
 
@@ -86,7 +84,7 @@ class Agendamento:
     janela_planner = Tk()
     janela_planner.title('agendamento')
     janela_planner.geometry('860x300+200+100')
-    janela_planner.configure(bg=a)
+    janela_planner.configure(bg='#FBF8F0')
 
     columns = ('codigo', 'nome', 'data', 'local')
 
@@ -113,11 +111,11 @@ class Agendamento:
     scrollbar = Scrollbar(janela_planner, orient=tk.VERTICAL, command=agendamentos.yview)
     scrollbar.grid(row=0, column=1, sticky='ns')
 
-    def bt_click():
+    def voltar():
       janela_planner.destroy()
-      self.menu_agendamento()
 
-    botao = Button(janela_planner, text='voltar', command=bt_click)
-    botao.place(x='50', y='240')
+    img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
+    botao_voltar = Button(janela_planner, image=img_voltar, command=voltar, borderwidth=0)
+    botao_voltar.place(x='50', y='240', w='72', h='33')
 
     janela_planner.mainloop()
