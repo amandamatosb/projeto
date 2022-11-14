@@ -5,8 +5,6 @@ import tkinter.ttk as ttk
 import tkinter.messagebox as tkMessageBox
 import tkinter.messagebox
 
-a = '#BCD2EE'
-
 def banco_usuarios():
   janela_bd = Tk()
   janela_bd.title('bd.usuarios')
@@ -18,27 +16,32 @@ def banco_usuarios():
   entrada_bd.place(x='58', y='197')
 
   def bt_click():
-    if int(entrada_bd.get()) == 1:
-      janela_bd.destroy()
-      ler_bd()
+    try:
+      if int(entrada_bd.get()) == 1:
+        janela_bd.destroy()
+        ler_bd()
 
-    elif int(entrada_bd.get()) == 2:
-      janela_bd.destroy()
-      excluir_dados()
+      elif int(entrada_bd.get()) == 2:
+        janela_bd.destroy()
+        excluir_dados()
 
-    else:
-      print(showerror("erro", 'não existe essa opção'))
+      else:
+        raise ValueError()
+
+    except(TypeError, ValueError):
+      print(showerror("erro", 'digite correto'))
+      entrada_bd.delete(0, END)
 
   img_enviar = PhotoImage(file='imagens/botao_enviar2.png')
   botao_bd = Button(janela_bd, image=img_enviar, command=bt_click, borderwidth=0)
-  botao_bd.place(x='58', y='257', w='72', h='33')
+  botao_bd.place(x='58', y='257', w='72', h='25')
 
   def voltar():
     janela_bd.destroy()
 
   img_voltar = PhotoImage(file='imagens/botao_voltar1.png')
   botao_voltar = Button(janela_bd, image=img_voltar, command=voltar, borderwidth=0)
-  botao_voltar.place(x='562', y='334', w='72', h='33')
+  botao_voltar.place(x='562', y='334', w='72', h='25')
 
   janela_bd.mainloop()
 
@@ -82,7 +85,7 @@ def ler_bd():
 
   img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
   botao_voltar = Button(janela_visao, image=img_voltar, command=voltar, borderwidth=0)
-  botao_voltar.place(x='30', y='30', w='72', h='33')
+  botao_voltar.place(x='30', y='30', w='72', h='25')
 
   scrollbary = Scrollbar(janela_visao, orient=VERTICAL)
   scrollbarx = Scrollbar(janela_visao, orient=HORIZONTAL)
@@ -153,10 +156,10 @@ def excluir_dados():
 
   img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
   botao = Button(janela_excluir, image=img_enviar, command=bt_click, borderwidth=0)
-  botao.place(x='309', y='311', w='72', h='33')
+  botao.place(x='309', y='311', w='72', h='25')
 
   img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
   botao_voltar = Button(janela_excluir, image=img_voltar, command=voltar, borderwidth=0)
-  botao_voltar.place(x='570', y='14', w='72', h='33')
+  botao_voltar.place(x='570', y='14', w='72', h='25')
 
   janela_excluir.mainloop()

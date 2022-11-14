@@ -14,9 +14,6 @@ usuarios = []
 email = []
 eventos_usuarios = {}
 
-a = '#BCD2EE'
-
-
 class Usuario:
   def __init__(self):
     self.__nome = ''
@@ -40,23 +37,35 @@ class Usuario:
     def bt_click():
       self.__nome = entrada.get().title()
       while True:
-        self.__email = entrada1.get().lower()
-        if self.__email[-10:] != '@gmail.com':
-          print(showinfo("email inválido", "use @gmail.com para validar o email"))
+        try:
+          self.__email = entrada1.get().lower()
+          if self.__email[-10:] != '@gmail.com':
+            raise EmailInvalido()
+
+          elif self.__email in email:
+            raise EmailExistente()
+
+        except EmailExistente:
+          print(showinfo("email existente", "já existe esse email no sistema"))
           janela_cadastro.destroy()
           self.realizar_cadastro()
 
-        elif self.__email in email:
-          print(showinfo("email existente", "já existe esse email no sistema"))
+        except EmailInvalido:
+          print(showinfo("email inválido", "use @gmail.com para validar o email"))
           janela_cadastro.destroy()
           self.realizar_cadastro()
 
         else:
           break
 
+
       while True:
-        self.__senha = entrada2.get()
-        if (len(self.__senha) < 8) or not re.search("[a-z]", self.__senha) or not re.search("[A-Z]", self.__senha)   or not re.search( "[0-9]", self.__senha) or not re.search("[!#$%&()*+,-./:;<=>?@[\]^_`{|}~']", self.__senha) or re.search("\s", self.__senha):
+        try:
+          self.__senha = entrada2.get()
+          if (len(self.__senha) < 8) or not re.search("[a-z]", self.__senha) or not re.search("[A-Z]", self.__senha)   or not re.search( "[0-9]", self.__senha) or not re.search("[!#$%&()*+,-./:;<=>?@[\]^_`{|}~']", self.__senha) or re.search("\s", self.__senha):
+            raise SenhaFraca()
+
+        except SenhaFraca:
           print(showinfo("senha fraca", "SENHA FRACA!\n\nAVISO: \n mínimo 8 caracteres \n letras minúsculas [az] \n letras maiúsculas [AZ] \n pelo menos 1 número ou dígito entre [0-9] \n pelo menos 1 caractere especial"))
           janela_cadastro.destroy()
           self.realizar_cadastro()
@@ -73,7 +82,7 @@ class Usuario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_cadastro, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='312', y='321', w='72', h='33')
+    botao.place(x='312', y='321', w='72', h='25')
     janela_cadastro.mainloop()
 
   def fazer_login(self):
@@ -102,7 +111,7 @@ class Usuario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_login, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='33')
+    botao.place(x='309', y='311', w='72', h='25')
 
     janela_login.mainloop()
 
@@ -134,7 +143,7 @@ class Usuario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_loginsenha, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='33')
+    botao.place(x='309', y='311', w='72', h='25')
 
     rsenha = usuarios.index(email_digitado)
 
@@ -151,29 +160,32 @@ class Usuario:
     entrada.place(x='58', y='197')
 
     def enviar():
-      if int(entrada.get()) == 1:
-        janela_escolher_funcoes.destroy()
-        self.exibir_dados(email_digitado, rsenha)
-        self.escolher_funcoes(email_digitado, rsenha)
-      elif int(entrada.get()) == 2:
-        janela_escolher_funcoes.destroy()
-        self.consultar_agendamento(email_digitado)
-        self.escolher_funcoes(email_digitado, rsenha)
-      else:
-        print(showerror("erro", 'eita mano deu erro aqui'))
-        janela_escolher_funcoes.destroy()
-        self.escolher_funcoes(email_digitado, rsenha)
+      try:
+        if int(entrada.get()) == 1:
+          janela_escolher_funcoes.destroy()
+          self.exibir_dados(email_digitado, rsenha)
+          self.escolher_funcoes(email_digitado, rsenha)
+        elif int(entrada.get()) == 2:
+          janela_escolher_funcoes.destroy()
+          self.consultar_agendamento(email_digitado)
+          self.escolher_funcoes(email_digitado, rsenha)
+        else:
+          raise ValueError()
+
+      except (TypeError, ValueError):
+        print(showerror('erro', 'digite correto'))
+        entrada.delete(0, END)
 
     img_enviar = PhotoImage(file='imagens/botao_enviar.png')
     botao = Button(janela_escolher_funcoes, image=img_enviar, command=enviar, borderwidth=0)
-    botao.place(x='58', y='257', w='72', h='33')
+    botao.place(x='58', y='257', w='72', h='25')
 
     def voltar():
       janela_escolher_funcoes.destroy()
 
     img_voltar = PhotoImage(file='imagens/botao_voltar.png')
     botao_voltar = Button(janela_escolher_funcoes, image=img_voltar, command = voltar, borderwidth=0)
-    botao_voltar.place(x='592', y='334', w='72', h='33')
+    botao_voltar.place(x='592', y='334', w='72', h='25')
 
     janela_escolher_funcoes.mainloop()
 
@@ -196,7 +208,7 @@ class Usuario:
 
     img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
     botao = Button(janela_exibir_dados, image=img_voltar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='33')
+    botao.place(x='309', y='311', w='72', h='25')
 
     janela_exibir_dados.mainloop()
 
@@ -206,3 +218,13 @@ class Usuario:
       self.consultar_agendamento(email_digitado)
     else:
       eventos_usuarios[email_digitado].menu_agendamento()
+
+
+class EmailInvalido(Exception):
+  pass
+
+class EmailExistente(Exception):
+  pass
+
+class SenhaFraca(Exception):
+  pass

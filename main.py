@@ -50,13 +50,13 @@ def comeco():
 
     img_voltar = PhotoImage(file='imagens/botao_voltar.png')
     botao_voltar = Button(janela_sistema, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='592', y='334', w='72',  h='33')
+    botao_voltar.place(x='592', y='334', w='72', h='25')
 
     janela_sistema.mainloop()
 
   img_sis = PhotoImage(file='imagens/botao_sistema.png')
   botao_sistema = Button(janela, image=img_sis, command=ver_sistema, borderwidth=0)
-  botao_sistema.place(x='476', y='40', w='189', h='33')
+  botao_sistema.place(x='476', y='40', w='189', h='25')
 
   def banco_de_dados():
     janela.destroy()
@@ -73,19 +73,27 @@ def comeco():
     entrada.place(x='58', y='197')
 
     def enviar():
-      if int(entrada.get()) == 1:
-        janela_banco.destroy()
-        banco_usuarios()
-        banco()
+      try:
+        if int(entrada.get()) == 1:
+          janela_banco.destroy()
+          banco_usuarios()
+          banco()
 
-      elif int(entrada.get()) == 2:
-        janela_banco.destroy()
-        banco_eventos()
-        banco()
+        elif int(entrada.get()) == 2:
+          janela_banco.destroy()
+          banco_eventos()
+          banco()
+
+        else:
+          raise ValueError()
+
+      except(TypeError, ValueError):
+        print(showerror('erro', 'digite correto'))
+        entrada.delete(0, END)
 
     img_enviar = PhotoImage(file='imagens/botao_enviar.png')
     botao = Button(janela_banco, image=img_enviar, command=enviar, borderwidth=0)
-    botao.place(x='58', y='257', w='72', h='33')
+    botao.place(x='58', y='257', w='72', h='25')
 
     def voltar():
       janela_banco.destroy()
@@ -93,13 +101,13 @@ def comeco():
 
     img_voltar = PhotoImage(file='imagens/botao_voltar.png')
     botao_voltar = Button(janela_banco, image=img_voltar, command = voltar, borderwidth=0)
-    botao_voltar.place(x='592', y='334', w='72',  h='33')
+    botao_voltar.place(x='592', y='334', w='72', h='25')
 
     janela_banco.mainloop()
 
   img_bd = PhotoImage(file='imagens/botao_bd.png')
   botao_bd = Button(janela, image=img_bd, command=banco_de_dados, borderwidth=0)
-  botao_bd.place(x='480', y='334', w='178',  h='33')
+  botao_bd.place(x='480', y='334', w='178', h='25')
 
   def bt_click():
     try:
@@ -119,10 +127,11 @@ def comeco():
 
     except (TypeError, ValueError):
       print(showerror('erro', 'digite correto'))
+      entrada.delete(0, END)
 
   img_enviar = PhotoImage(file='imagens/botao_enviar.png')
   botao = Button(janela, image = img_enviar, command=bt_click, borderwidth=0)
-  botao.place(x='58', y='257', w='72', h='33')
+  botao.place(x='58', y='257', w='72', h='25')
 
   janela.mainloop()
 

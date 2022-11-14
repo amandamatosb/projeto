@@ -4,9 +4,6 @@ import tkinter as tk
 from banco_eventos import *
 from usuario import *
 
-a = '#BCD2EE'
-
-
 class Agendamento:
   def __init__(self):
    self.__data = Calendario()
@@ -23,27 +20,32 @@ class Agendamento:
     entrada_agendamento.place(x='58', y='197')
 
     def bt_click():
-      if int(entrada_agendamento.get()) == 1:
-        janela_agendamento.destroy()
-        self.eventos()
-        self.menu_agendamento()
-      elif int(entrada_agendamento.get()) == 2:
-        janela_agendamento.destroy()
-        self.exibir_eventos()
-        self.menu_agendamento()
-      else:
-        print(showerror("erro", "digite uma das opções"))
+      try:
+        if int(entrada_agendamento.get()) == 1:
+          janela_agendamento.destroy()
+          self.eventos()
+          self.menu_agendamento()
+        elif int(entrada_agendamento.get()) == 2:
+          janela_agendamento.destroy()
+          self.exibir_eventos()
+          self.menu_agendamento()
+        else:
+          raise ValueError()
+
+      except (TypeError, ValueError):
+        print(showerror('erro', 'digite correto'))
+        entrada_agendamento.delete(0, END)
 
     img_enviar = PhotoImage(file='imagens/botao_enviar2.png')
     botao_bd = Button(janela_agendamento, image=img_enviar, command=bt_click, borderwidth=0)
-    botao_bd.place(x='58', y='257', w='72',  h='33')
+    botao_bd.place(x='58', y='257', w='72', h='25')
 
     def voltar():
       janela_agendamento.destroy()
 
     img_voltar = PhotoImage(file='imagens/botao_voltar1.png')
     botao_voltar = Button(janela_agendamento, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='562', y='334', w='72', h='33')
+    botao_voltar.place(x='562', y='334', w='72', h='25')
 
     janela_agendamento.mainloop()
 
@@ -58,25 +60,30 @@ class Agendamento:
     entrada_eventos.place(x='58', y='197')
 
     def bt_click():
-      if int(entrada_eventos.get()) == 1:
-        janela_eventos.destroy()
-        self.__evento.agendar_evento()
-      elif int(entrada_eventos.get()) == 2:
-        janela_eventos.destroy()
-        self.__evento.excluir_evento()
-      else:
-        print(showerror("erro", 'digite uma das opções'))
+      try:
+        if int(entrada_eventos.get()) == 1:
+          janela_eventos.destroy()
+          self.__evento.agendar_evento()
+        elif int(entrada_eventos.get()) == 2:
+          janela_eventos.destroy()
+          self.__evento.excluir_evento()
+        else:
+          raise ValueError()
+
+      except (TypeError, ValueError):
+        print(showerror('erro', 'digite correto'))
+        entrada_eventos.delete(0, END)
 
     img_enviar = PhotoImage(file='imagens/botao_enviar2.png')
     botao_bd = Button(janela_eventos, image=img_enviar, command=bt_click, borderwidth=0)
-    botao_bd.place(x='58', y='257', w='72', h='33')
+    botao_bd.place(x='58', y='257', w='72', h='25')
 
     def voltar():
       janela_eventos.destroy()
 
     img_voltar = PhotoImage(file='imagens/botao_voltar1.png')
     botao_voltar = Button(janela_eventos, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='562', y='334', w='72', h='33' )
+    botao_voltar.place(x='562', y='334', w='72', h='25')
 
     janela_eventos.mainloop()
 
@@ -116,6 +123,6 @@ class Agendamento:
 
     img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
     botao_voltar = Button(janela_planner, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='50', y='240', w='72', h='33')
+    botao_voltar.place(x='50', y='240', w='72', h='25')
 
     janela_planner.mainloop()

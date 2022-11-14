@@ -3,10 +3,6 @@ from banco_eventos import *
 
 evento = {}
 
-b = '#FFFFFF'
-a = '#BCD2EE'
-v = '#B22222'
-
 
 class Evento:
     def __init__(self):
@@ -30,14 +26,23 @@ class Evento:
         entrada.place(x='270', y='175', w = '159', h = '21')
 
         def bt_click():
-            evento['nome'] = entrada.get().title()
-            janela_evento.destroy()
-            evento['data'] = self.__data_evento.definir_data()
-            self.lugar_evento()
+            try:
+                if entrada.get() == '' or entrada.get() == ' ':
+                    raise Vazio()
+
+            except Vazio:
+                print(showerror('erro', 'escreva alguma coisa'))
+                entrada.delete(0, END)
+
+            else:
+                evento['nome'] = entrada.get().title()
+                janela_evento.destroy()
+                evento['data'] = self.__data_evento.definir_data()
+                self.lugar_evento()
 
         img_proximo = PhotoImage(file='imagens/proximo.png')
         botao = Button(janela_evento, image=img_proximo, command=bt_click, borderwidth=0)
-        botao.place(x='309', y='311', w='85', h='33')
+        botao.place(x='309', y='311', w='85', h='25')
 
         janela_evento.mainloop()
 
@@ -52,16 +57,25 @@ class Evento:
         entrada.place(x='270', y='175', w='159', h='21')
 
         def bt_click():
-            evento['local'] = entrada.get().title()
-            self.eventos.append((evento['código'], evento['nome'], evento['data'], evento['local']))
-            cadastrar(evento['nome'], evento['data'], evento['local'])
-            print(showinfo('evento marcado', 'evento marcado com sucesso!'))
-            janela_lugar.destroy()
-            pass
+            try:
+                if entrada.get() == '':
+                    raise Vazio()
+
+            except Vazio:
+                print(showerror('erro', 'escreva alguma coisa'))
+                entrada.delete(0, END)
+
+            else:
+                evento['local'] = entrada.get().title()
+                self.eventos.append((evento['código'], evento['nome'], evento['data'], evento['local']))
+                cadastrar(evento['nome'], evento['data'], evento['local'])
+                print(showinfo('evento marcado', 'evento marcado com sucesso!'))
+                janela_lugar.destroy()
+                pass
 
         img_salvar = PhotoImage(file='imagens/salvar.png')
         botao = Button(janela_lugar, image=img_salvar, command=bt_click, borderwidth=0)
-        botao.place(x='309', y='311', w='72', h='33')
+        botao.place(x='309', y='311', w='72', h='25')
 
         janela_lugar.mainloop()
 
@@ -76,12 +90,19 @@ class Evento:
         codigo.place(x='270', y='175', w='159', h='21')
 
         def bt_click():
-            if int(codigo.get()) > len(self.eventos) or int(codigo.get()) <= 0:
-                print(showerror('erro', 'não existe esse cógigo no sistema'))
+            try:
+                if int(codigo.get()) > len(self.eventos) or int(codigo.get()) <= 0:
+                    raise NaoExisteCodigo()
+
+                elif self.eventos[int(codigo.get()) - 1] == ' ':
+                    raise NaoExisteEvento()
+
+            except NaoExisteCodigo:
+                print(showerror('erro', 'não existe esse código no sistema'))
                 janela_excluir.destroy()
                 self.excluir_evento()
 
-            elif self.eventos[int(codigo.get()) - 1] == ' ':
+            except NaoExisteEvento:
                 print(showerror('inexistente', 'não existe esse evento'))
                 janela_excluir.destroy()
                 self.excluir_evento()
@@ -98,11 +119,19 @@ class Evento:
 
         img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
         botao = Button(janela_excluir, image=img_enviar, command=bt_click, borderwidth=0)
-        botao.place(x='309', y='311', w='72', h='33')
+        botao.place(x='309', y='311', w='72', h='25')
 
         img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
         botao_voltar = Button(janela_excluir, image=img_voltar, command=voltar, borderwidth=0)
-        botao_voltar.place(x='570', y='14', w='72', h='33')
+        botao_voltar.place(x='570', y='14', w='72', h='25')
 
         janela_excluir.mainloop()
 
+class Vazio(Exception):
+    pass
+
+class NaoExisteCodigo(Exception):
+    pass
+
+class NaoExisteEvento(Exception):
+    pass
