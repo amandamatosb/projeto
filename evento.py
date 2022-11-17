@@ -50,7 +50,7 @@ class Evento:
 
     img_proximo = PhotoImage(file='imagens/proximo.png')
     botao = Button(janela_evento, image=img_proximo, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='85', h='25')
+    botao.place(x='309', y='311', w='85', h='33')
 
     janela_evento.mainloop()
 
@@ -83,7 +83,7 @@ class Evento:
 
     img_salvar = PhotoImage(file='imagens/salvar.png')
     botao = Button(janela_lugar, image=img_salvar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='25')
+    botao.place(x='309', y='311', w='72', h='33')
 
     janela_lugar.mainloop()
 
@@ -127,11 +127,11 @@ class Evento:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_excluir, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='25')
+    botao.place(x='309', y='311', w='72', h='33')
 
     img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
     botao_voltar = Button(janela_excluir, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='570', y='14', w='72', h='25')
+    botao_voltar.place(x='570', y='14', w='72', h='33')
 
     janela_excluir.mainloop()
 

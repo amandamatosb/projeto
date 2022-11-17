@@ -91,7 +91,7 @@ class Usuario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_cadastro, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='312', y='321', w='72', h='25')
+    botao.place(x='312', y='321', w='72', h='33')
     janela_cadastro.mainloop()
 
   def fazer_login(self):
@@ -120,7 +120,7 @@ class Usuario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_login, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='25')
+    botao.place(x='309', y='311', w='72', h='33')
 
     janela_login.mainloop()
 
@@ -152,7 +152,7 @@ class Usuario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_loginsenha, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='25')
+    botao.place(x='309', y='311', w='72', h='33')
 
     rsenha = usuarios.index(email_digitado)
 
@@ -187,14 +187,14 @@ class Usuario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar.png')
     botao = Button(janela_escolher_funcoes, image=img_enviar, command=enviar, borderwidth=0)
-    botao.place(x='58', y='257', w='72', h='25')
+    botao.place(x='58', y='257', w='72', h='33')
 
     def voltar():
       janela_escolher_funcoes.destroy()
 
     img_voltar = PhotoImage(file='imagens/botao_voltar.png')
     botao_voltar = Button(janela_escolher_funcoes, image=img_voltar, command = voltar, borderwidth=0)
-    botao_voltar.place(x='592', y='334', w='72', h='25')
+    botao_voltar.place(x='592', y='334', w='72', h='33')
 
     janela_escolher_funcoes.mainloop()
 
@@ -217,7 +217,7 @@ class Usuario:
 
     img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
     botao = Button(janela_exibir_dados, image=img_voltar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='25')
+    botao.place(x='309', y='311', w='72', h='33')
 
     janela_exibir_dados.mainloop()
 

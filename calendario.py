@@ -25,7 +25,7 @@ class Calendario:
     janela_calendario.configure(bg = '#FBF8F0')
     img = PhotoImage(file='imagens/add_data.png')
     labelimage_inicio = Label(image=img)
-    labelimage_inicio.place(x = '118', y = '60', w = '85', h = '34')
+    labelimage_inicio.place(x = '118', y = '60', w = '90', h = '34')
 
     def bt_click():
       resultado = tkinter.messagebox.askquestion("Confirmação", "Confirmar essa data?", icon="warning")
@@ -41,7 +41,7 @@ class Calendario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_calendario, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='85', h='25')
+    botao.place(x='309', y='311', w='85', h='33')
 
     ajustes = MyDateEntry(janela_calendario, year=2022, month=11, day=15,
                           selectbackground='gray80',
@@ -104,11 +104,11 @@ class Calendario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_horario, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='185', y='200', w='85', h='25')
+    botao.place(x='185', y='200', w='85', h='33')
 
     img = PhotoImage(file='imagens/add_horas.png')
     labelimage_inicio = Label(image=img)
-    labelimage_inicio.place(x='180', y='30', w='95', h='34')
+    labelimage_inicio.place(x='180', y='30', w='100', h='34')
 
 
     janela_horario.mainloop()
