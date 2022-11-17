@@ -14,6 +14,15 @@ usuarios = []
 email = []
 eventos_usuarios = {}
 
+class ExcecaoEmailInvalido(Exception):
+  pass
+
+class ExcecaoEmailExistente(Exception):
+  pass
+
+class ExcecaoSenhaFraca(Exception):
+  pass
+
 class Usuario:
   def __init__(self):
     self.__nome = ''
@@ -39,19 +48,19 @@ class Usuario:
       while True:
         try:
           self.__email = entrada1.get().lower()
-          if self.__email[-10:] != '@gmail.com':
-            raise EmailInvalido()
+          if self.__email[-10:] != '@gmail.com' and self.__email[-12:] != '@hotmail.com' and self.__email[-22:] != '@estudante.ifro.edu.br' and self.__email[-12:] != '@ifro.edu.br':
+            raise ExcecaoEmailInvalido()
 
           elif self.__email in email:
-            raise EmailExistente()
+            raise ExcecaoEmailExistente()
 
-        except EmailExistente:
-          print(showinfo("email existente", "já existe esse email no sistema"))
+        except ExcecaoEmailExistente:
+          print(showinfo("Email Existente", "Já existe esse email no sistema."))
           janela_cadastro.destroy()
           self.realizar_cadastro()
 
-        except EmailInvalido:
-          print(showinfo("email inválido", "use @gmail.com para validar o email"))
+        except ExcecaoEmailInvalido:
+          print(showinfo("Email Inválido", "Digite o email corretamente."))
           janela_cadastro.destroy()
           self.realizar_cadastro()
 
@@ -63,10 +72,10 @@ class Usuario:
         try:
           self.__senha = entrada2.get()
           if (len(self.__senha) < 8) or not re.search("[a-z]", self.__senha) or not re.search("[A-Z]", self.__senha)   or not re.search( "[0-9]", self.__senha) or not re.search("[!#$%&()*+,-./:;<=>?@[\]^_`{|}~']", self.__senha) or re.search("\s", self.__senha):
-            raise SenhaFraca()
+            raise ExcecaoSenhaFraca()
 
-        except SenhaFraca:
-          print(showinfo("senha fraca", "SENHA FRACA!\n\nAVISO: \n mínimo 8 caracteres \n letras minúsculas [az] \n letras maiúsculas [AZ] \n pelo menos 1 número ou dígito entre [0-9] \n pelo menos 1 caractere especial"))
+        except ExcecaoSenhaFraca:
+          print(showinfo("Senha Fraca", "SENHA FRACA!\n\nAVISO: \n Mínimo 8 caracteres. \n Letras minúsculas [az]. \n Letras maiúsculas [AZ]. \n Pelo menos 1 número ou dígito entre [0-9]. \n Pelo menos 1 caractere especial."))
           janela_cadastro.destroy()
           self.realizar_cadastro()
 
@@ -77,12 +86,12 @@ class Usuario:
       usuarios.extend((self.__nome, self.__email, self.__senha))
       cadastrar(self.__nome, self.__email)
 
-      print(showinfo('cadastro realizado', 'cadastro realizado com sucesso'))
+      print(showinfo('Cadastro Realizado', 'Cadastro realizado com sucesso.'))
       janela_cadastro.destroy()
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_cadastro, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='312', y='321', w='72', h='33')
+    botao.place(x='312', y='321', w='72', h='25')
     janela_cadastro.mainloop()
 
   def fazer_login(self):
@@ -102,7 +111,7 @@ class Usuario:
         self.senha_login(email_digitado)
 
       else:
-        resultado = tkinter.messagebox.askquestion("email não existe", "você não tem cadastro, deseja se cadastrar? ", icon="warning")
+        resultado = tkinter.messagebox.askquestion("Email Não Existe", "Você não tem cadastro, deseja se cadastrar? ", icon="warning")
         if resultado == 'yes':
           janela_login.destroy()
         else:
@@ -111,7 +120,7 @@ class Usuario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_login, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='33')
+    botao.place(x='309', y='311', w='72', h='25')
 
     janela_login.mainloop()
 
@@ -128,7 +137,7 @@ class Usuario:
     def bt_click():
       senha_digitada = entrada.get()
       if senha_digitada != usuarios[rsenha + 1]:
-        resultado = tkinter.messagebox.askquestion("senha errada", "você deseja tentar novamente? ",
+        resultado = tkinter.messagebox.askquestion("Senha Errada", "Você deseja tentar novamente? ",
                                                    icon="warning")
         if resultado == 'yes':
           janela_loginsenha.destroy()
@@ -137,13 +146,13 @@ class Usuario:
           janela_loginsenha.destroy()
 
       else:
-        print(showinfo("login feito", "BEM VINDO AO PLANNER"))
+        print(showinfo("Login Feito", "BEM VINDO AO PLANNER."))
         janela_loginsenha.destroy()
         self.escolher_funcoes(email_digitado, rsenha)
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_loginsenha, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='33')
+    botao.place(x='309', y='311', w='72', h='25')
 
     rsenha = usuarios.index(email_digitado)
 
@@ -173,19 +182,19 @@ class Usuario:
           raise ValueError()
 
       except (TypeError, ValueError):
-        print(showerror('erro', 'digite correto'))
+        print(showerror('Erro', 'Digite Correto.'))
         entrada.delete(0, END)
 
     img_enviar = PhotoImage(file='imagens/botao_enviar.png')
     botao = Button(janela_escolher_funcoes, image=img_enviar, command=enviar, borderwidth=0)
-    botao.place(x='58', y='257', w='72', h='33')
+    botao.place(x='58', y='257', w='72', h='25')
 
     def voltar():
       janela_escolher_funcoes.destroy()
 
     img_voltar = PhotoImage(file='imagens/botao_voltar.png')
     botao_voltar = Button(janela_escolher_funcoes, image=img_voltar, command = voltar, borderwidth=0)
-    botao_voltar.place(x='592', y='334', w='72', h='33')
+    botao_voltar.place(x='592', y='334', w='72', h='25')
 
     janela_escolher_funcoes.mainloop()
 
@@ -208,7 +217,7 @@ class Usuario:
 
     img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
     botao = Button(janela_exibir_dados, image=img_voltar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='33')
+    botao.place(x='309', y='311', w='72', h='25')
 
     janela_exibir_dados.mainloop()
 
@@ -220,11 +229,6 @@ class Usuario:
       eventos_usuarios[email_digitado].menu_agendamento()
 
 
-class EmailInvalido(Exception):
-  pass
 
-class EmailExistente(Exception):
-  pass
 
-class SenhaFraca(Exception):
-  pass
+

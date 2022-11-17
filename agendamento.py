@@ -38,14 +38,14 @@ class Agendamento:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar2.png')
     botao_bd = Button(janela_agendamento, image=img_enviar, command=bt_click, borderwidth=0)
-    botao_bd.place(x='58', y='257', w='72', h='33')
+    botao_bd.place(x='58', y='257', w='72', h='25')
 
     def voltar():
       janela_agendamento.destroy()
 
     img_voltar = PhotoImage(file='imagens/botao_voltar1.png')
     botao_voltar = Button(janela_agendamento, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='562', y='334', w='72', h='33')
+    botao_voltar.place(x='562', y='334', w='72', h='25')
 
     janela_agendamento.mainloop()
 
@@ -71,19 +71,19 @@ class Agendamento:
           raise ValueError()
 
       except (TypeError, ValueError):
-        print(showerror('erro', 'digite correto'))
+        print(showerror('Erro', 'Digite correto.'))
         entrada_eventos.delete(0, END)
 
     img_enviar = PhotoImage(file='imagens/botao_enviar2.png')
     botao_bd = Button(janela_eventos, image=img_enviar, command=bt_click, borderwidth=0)
-    botao_bd.place(x='58', y='257', w='72', h='33')
+    botao_bd.place(x='58', y='257', w='72', h='25')
 
     def voltar():
       janela_eventos.destroy()
 
     img_voltar = PhotoImage(file='imagens/botao_voltar1.png')
     botao_voltar = Button(janela_eventos, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='562', y='334', w='72', h='33')
+    botao_voltar.place(x='562', y='334', w='72', h='25')
 
     janela_eventos.mainloop()
 
@@ -123,6 +123,6 @@ class Agendamento:
 
     img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
     botao_voltar = Button(janela_planner, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='50', y='240', w='72', h='33')
+    botao_voltar.place(x='50', y='240', w='72', h='25')
 
     janela_planner.mainloop()

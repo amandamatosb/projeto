@@ -6,6 +6,14 @@ import tkinter.messagebox as tkMessageBox
 import tkinter.messagebox
 from tkinter.messagebox import *
 
+
+class MyDateEntry(DateEntry):
+  def __init__(self, master=None, **kw):
+    DateEntry.__init__(self, master=None, **kw)
+    self._top_cal.configure(bg='black', bd=1)
+    tk.Label(self._top_cal, bg='gray90', anchor='w',
+             text='hoje: %s' % date.today().strftime('%d/%m/%Y')).pack(fill='x')
+
 class Calendario:
   def __init__(self):
     self.datas = []
@@ -17,18 +25,10 @@ class Calendario:
     janela_calendario.configure(bg = '#FBF8F0')
     img = PhotoImage(file='imagens/add_data.png')
     labelimage_inicio = Label(image=img)
-    labelimage_inicio.place(x = '118', y = '60', w = '90', h = '34')
-
-    class MyDateEntry(DateEntry):
-      def __init__(self, master=None, **kw):
-        DateEntry.__init__(self, master=None, **kw)
-        self._top_cal.configure(bg='black', bd=1)
-        tk.Label(self._top_cal, bg='gray90', anchor='w',
-                 text='hoje: %s' % date.today().strftime('%d/%m/%Y')).pack(fill='x')
-
+    labelimage_inicio.place(x = '118', y = '60', w = '85', h = '34')
 
     def bt_click():
-      resultado = tkinter.messagebox.askquestion("confirmação", "confirma essa data?", icon="warning")
+      resultado = tkinter.messagebox.askquestion("Confirmação", "Confirmar essa data?", icon="warning")
       if resultado == 'yes':
         global data
         data = ajustes.get_date().strftime('%d/%m/%Y')
@@ -41,9 +41,8 @@ class Calendario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_calendario, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='85', h='33')
+    botao.place(x='309', y='311', w='85', h='25')
 
-    # criando a entrada e mudando os ajustes de cor do calendario
     ajustes = MyDateEntry(janela_calendario, year=2022, month=11, day=15,
                           selectbackground='gray80',
                           selectforeground='black',
@@ -92,7 +91,7 @@ class Calendario:
             lb_horario.insert(END, f'{h}:{m}')
 
     def bt_click():
-      resultado = tkinter.messagebox.askquestion("confirmação", "confirma este horário?", icon="warning")
+      resultado = tkinter.messagebox.askquestion("Confirmação", "Confirma este horário?", icon="warning")
       if resultado == 'yes':
         horario = str(lb_horario.get(ACTIVE))
         data_do_evento = f"{data} às {horario}"
@@ -105,11 +104,11 @@ class Calendario:
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_horario, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='185', y='200', w='85', h='33')
+    botao.place(x='185', y='200', w='85', h='25')
 
     img = PhotoImage(file='imagens/add_horas.png')
     labelimage_inicio = Label(image=img)
-    labelimage_inicio.place(x='180', y='30', w='100', h='34')
+    labelimage_inicio.place(x='180', y='30', w='95', h='34')
 
 
     janela_horario.mainloop()
@@ -119,6 +118,7 @@ class Calendario:
       self.datas.append(data_do_evento)
 
     else:
-      print(showerror("erro", 'já tem evento marcado para essa data'))
+      print(showerror("Erro", 'Já tem evento marcado para essa data.'))
       janela_horario.destroy()
       self.definir_data()
+

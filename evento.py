@@ -3,6 +3,14 @@ from banco_eventos import *
 
 evento = {}
 
+class ErroUsuarioNaoDigitou(Exception):
+    pass
+
+class ErroNaoExisteCodigo(Exception):
+    pass
+
+class ErroNaoExisteEvento(Exception):
+    pass
 
 class Evento:
   def __init__(self):
@@ -27,11 +35,11 @@ class Evento:
 
     def bt_click():
       try:
-        if entrada.get() == '' or entrada.get() == ' ':
-          raise Vazio()
+        if entrada.get() == '':
+            raise ErroUsuarioNaoDigitou()
 
-      except Vazio:
-        print(showerror('erro', 'escreva alguma coisa'))
+      except ErroUsuarioNaoDigitou:
+        print(showerror('Erro', 'Escreva alguma coisa.'))
         entrada.delete(0, END)
 
       else:
@@ -42,7 +50,7 @@ class Evento:
 
     img_proximo = PhotoImage(file='imagens/proximo.png')
     botao = Button(janela_evento, image=img_proximo, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='85', h='33')
+    botao.place(x='309', y='311', w='85', h='25')
 
     janela_evento.mainloop()
 
@@ -59,23 +67,23 @@ class Evento:
     def bt_click():
       try:
         if entrada.get() == '':
-          raise Vazio()
+            raise ErroUsuarioNaoDigitou()
 
-      except Vazio:
-        print(showerror('erro', 'escreva alguma coisa'))
+      except ErroUsuarioNaoDigitou:
+        print(showerror('Erro', 'Escreva alguma coisa.'))
         entrada.delete(0, END)
 
       else:
         evento['local'] = entrada.get().title()
         self.eventos.append((evento['código'], evento['nome'], evento['data'], evento['local']))
         cadastrar(evento['nome'], evento['data'], evento['local'])
-        print(showinfo('evento marcado', 'evento marcado com sucesso!'))
+        print(showinfo('Evento Marcado', 'Evento marcado com sucesso!'))
         janela_lugar.destroy()
         pass
 
     img_salvar = PhotoImage(file='imagens/salvar.png')
     botao = Button(janela_lugar, image=img_salvar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='33')
+    botao.place(x='309', y='311', w='72', h='25')
 
     janela_lugar.mainloop()
 
@@ -92,50 +100,39 @@ class Evento:
     def bt_click():
       try:
         if int(codigo.get()) > len(self.eventos) or int(codigo.get()) <= 0:
-          raise NaoExisteCodigo()
+          raise ErroNaoExisteCodigo()
 
         elif self.eventos[int(codigo.get()) - 1] == ' ':
-          raise NaoExisteEvento()
-          
+          raise ErroNaoExisteEvento()
 
-        elif codigo.get().isalpha():
-          raise NaoNumero()
-
-      except NaoExisteCodigo:
-        print(showerror('erro', 'não existe esse código no sistema'))
+      except ErroNaoExisteCodigo:
+        print(showerror('Erro', 'Não existe esse código no sistema.'))
         janela_excluir.destroy()
         self.excluir_evento()
 
-      except NaoExisteEvento:
-        print(showerror('inexistente', 'não existe esse evento'))
+      except ErroNaoExisteEvento:
+        print(showerror('Evento Inexistente', 'Não existe esse evento.'))
         janela_excluir.destroy()
         self.excluir_evento()
 
       else:
         self.eventos.pop(int(codigo.get()) - 1)
         self.eventos.insert(int(codigo.get()) - 1, ' ')
-        print(showinfo('evento removido', 'evento excluído com sucesso!'))
+        print(showinfo('Evento Removido', 'Evento excluído com sucesso!'))
         janela_excluir.destroy()
         pass
 
     def voltar():
-        janela_excluir.destroy()
+      janela_excluir.destroy()
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_excluir, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='33')
+    botao.place(x='309', y='311', w='72', h='25')
 
     img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
     botao_voltar = Button(janela_excluir, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='570', y='14', w='72', h='33')
+    botao_voltar.place(x='570', y='14', w='72', h='25')
 
     janela_excluir.mainloop()
 
-class Vazio(Exception):
-  pass
 
-class NaoExisteCodigo(Exception):
-  pass
-
-class NaoExisteEvento(Exception):
-  pass

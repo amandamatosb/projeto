@@ -16,44 +16,41 @@ def banco_eventos():
     entrada_bd.place(x='58', y='197')
 
     def bt_click():
-      try:
-        if int(entrada_bd.get()) == 1:
-          janela_bd.destroy()
-          ler_bd()
+        try:
+            if int(entrada_bd.get()) == 1:
+                janela_bd.destroy()
+                ler_bd()
 
-        elif int(entrada_bd.get()) == 2:
-          janela_bd.destroy()
-          excluir_dados()
+            elif int(entrada_bd.get()) == 2:
+                janela_bd.destroy()
+                excluir_dados()
 
-        else:
-          raise ValueError()
+            else:
+                raise ValueError()
 
-      except(TypeError, ValueError):
-        print(showerror("erro", 'digite correto'))
-        entrada_bd.delete(0, END)
+        except(TypeError, ValueError):
+            print(showerror("Erro", 'Digite correto.'))
+            entrada_bd.delete(0, END)
 
     img_enviar = PhotoImage(file='imagens/botao_enviar2.png')
     botao_bd = Button(janela_bd, image=img_enviar, command=bt_click, borderwidth=0)
-    botao_bd.place(x='58', y='257', w='72', h='33')
+    botao_bd.place(x='58', y='257', w='72', h='25')
 
     def voltar():
       janela_bd.destroy()
 
     img_voltar = PhotoImage(file='imagens/botao_voltar1.png')
     botao_voltar = Button(janela_bd, image=img_voltar, command = voltar, borderwidth=0)
-    botao_voltar.place(x='562', y='334', w='72', h='33')
+    botao_voltar.place(x='562', y='334', w='72', h='25')
 
     janela_bd.mainloop()
 
 def bancodedados():
     global conexao, cursor
-      # conectando
     conexao = sqlite3.connect('bancos/eventos.db')
 
-     # definindo um cursor
     cursor = conexao.cursor()
 
-    # criando tabela
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS eventos (
          cod INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -66,7 +63,6 @@ def bancodedados():
 def cadastrar(nome, data, local):
     bancodedados()
 
-    # inserindo dados
     cursor.execute("""
                     INSERT INTO eventos (nome, local, data)
                     VALUES (?,?,?)
@@ -74,7 +70,6 @@ def cadastrar(nome, data, local):
 
     conexao.commit()
 
-    # desconectando
     cursor.close()
     conexao.close()
 
@@ -91,7 +86,7 @@ def ler_bd():
 
     img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
     botao_voltar = Button(janela_visao, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='20', y='30', w='72', h='33')
+    botao_voltar.place(x='20', y='30', w='72', h='25')
 
     scrollbary = Scrollbar(janela_visao, orient=VERTICAL)
     scrollbarx = Scrollbar(janela_visao, orient=HORIZONTAL)
@@ -115,15 +110,13 @@ def ler_bd():
     arvore.delete(*arvore.get_children())
     bancodedados()
 
-        # lendo dados
     cursor.execute("""SELECT * FROM `eventos` ORDER BY `cod` ASC;""")
 
-    fetch = cursor.fetchall()  # retorna os resultados como tuplas e armazena em fetch
-    for dados in fetch:  # insere tuplas do fetch na árvore
+    fetch = cursor.fetchall()
+    for dados in fetch:
         arvore.insert('', 'end', values=(dados[0], dados[1], dados[2], dados[3]))
 
     cursor.close()
-    # desconectando
     conexao.close()
 
     janela_visao.mainloop()
@@ -132,7 +125,6 @@ def excluir_dados():
     bancodedados()
     janela_excluir = Tk()
     janela_excluir.title('excluir.evento')
-    janela_excluir.config(bg=a)
     janela_excluir.geometry('700x394')
     img = PhotoImage(file='imagens/bd_excluir1.png')
     labelimage_inicio = Label(image=img)
@@ -141,25 +133,25 @@ def excluir_dados():
     entrada_excluir.place(x='270', y='175', w='159', h='21')
 
     def bt_click():
-      try:
-        item = int(entrada_excluir.get())
-        resultado = tkinter.messagebox.askquestion("confirmação", "realmente quer excluir esse evento?",
-                                                       icon="warning")
+        try:
+            item = int(entrada_excluir.get())
+            resultado = tkinter.messagebox.askquestion("Confirmação", "Realmente quer excluir esse evento?",
+                                                           icon="warning")
 
-        if resultado == 'yes':
-          cursor.execute("DELETE FROM eventos WHERE cod = ?",
-                          (item,))  # apaga item selecionado do banco
+            if resultado == 'yes':
+                cursor.execute("DELETE FROM eventos WHERE cod = ?",
+                                (item,))  
 
-          print(showinfo("pronto", 'evento excluído com sucesso'))
-          conexao.commit()
-          conexao.close()
-          janela_excluir.destroy()
-          banco_eventos()
+                print(showinfo("Pronto", 'Evento excluído com sucesso.'))
+                conexao.commit()
+                conexao.close()
+                janela_excluir.destroy()
+                banco_eventos()
 
-      except:
-        print(showerror("erro", 'não existe esse usuário'))
-        janela_excluir.destroy()
-        excluir_dados()
+        except:
+            print(showerror("Erro", 'Não existe esse usuário.'))
+            janela_excluir.destroy()
+            excluir_dados()
 
     def voltar():
         janela_excluir.destroy()
@@ -167,10 +159,11 @@ def excluir_dados():
 
     img_enviar = PhotoImage(file='imagens/botao_enviar1.png')
     botao = Button(janela_excluir, image=img_enviar, command=bt_click, borderwidth=0)
-    botao.place(x='309', y='311', w='72', h='33')
+    botao.place(x='309', y='311', w='72', h='25')
 
     img_voltar = PhotoImage(file='imagens/botao_voltar2.png')
     botao_voltar = Button(janela_excluir, image=img_voltar, command=voltar, borderwidth=0)
-    botao_voltar.place(x='570', y='14', w='72', h='33')
+    botao_voltar.place(x='570', y='14', w='72', h='25')
 
     janela_excluir.mainloop()
+
